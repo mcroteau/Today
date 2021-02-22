@@ -1,0 +1,162 @@
+body{
+    background: #eff4f4;
+    background: #e7f1f1;
+    background: #fff;
+    /*background: #00ffff;*/
+}
+#header-wrapper{}
+p,
+div,
+span{
+    color:#192525;
+    line-height: 1.4em;
+    margin:10px 0px;
+}
+pre{
+    display:block;
+    margin:0px auto 20px auto !important;
+}
+#guest-content{
+    text-align: center;
+}
+
+#welcome-text{
+    line-height: 0.9em !important;
+    font-size:131px;
+    margin:0px;
+    font-family: roboto-bold !important;
+}
+
+#welcome-text span{
+    font-size:47px;
+    display: block;
+    margin:0px;
+    font-family: roboto-slab !important;
+}
+
+.open-text{
+    line-height: 1.5em;
+    margin:10px auto 30px;
+}
+
+.logo{
+    float:left;
+    color:#000;
+    display:block;
+    font-size: 29px;
+    text-decoration: none;
+    line-height:1.0em;
+    font-family: roboto !important;
+}
+.logo:hover{color:#000}
+.tagline{
+    font-size:16px;
+    font-family: roboto-light !important;
+}
+#welcome{
+    display:block;
+    margin-bottom:20px;
+}
+#navigation{
+    float:right;
+    text-align: right;
+}
+#navigation a{
+    margin-left:10px;
+}
+label{
+    display:block;
+    margin:10px 0px 0px;
+}
+
+#content-wrapper{
+    margin-top:30px;
+}
+
+#project-page-actions{
+    margin-top:100px;
+    text-align: right;
+}
+
+#footer-wrapper{
+    margin-top:30px;
+    text-align: right;
+}
+
+.zero{
+    margin:0 !important;
+    padding:0;
+}
+
+.gain{
+    color:#f540a6;
+    color:#6C169B;
+    color:#52B852;
+    color:#000;
+    font-family: roboto-black !important;
+}
+
+table{
+    width:100%;
+}
+table td,
+table td a{
+    font-size:27px;
+    line-height:1.3em;
+    padding:4px 0px;
+    font-family:roboto-slab !important;
+}
+table tr:hover{
+    background:#eff4f4;
+    color:#f540a6;
+}
+.highlight{
+    color:#fff;
+    background: #000;
+    padding:4px 3px;
+    display:inline-block;
+}
+
+.highlight.blue{
+    background: #3fb8ff;
+    background: #f540a6;
+}
+
+.counts{
+    font-size:34px !important;
+    display:inline-block !important;
+    text-decoration: underline;
+    font-family: roboto-slab-bold !important;
+}
+.counts.h2{
+    font-size:36px !important;
+}
+
+.help{
+    color:#f540a6;
+}
+
+.right{
+    text-align: right;
+}
+.left{
+    text-align: left;
+}
+.center{
+    text-align: center !important;
+}
+
+.information{
+    font-family:roboto-slab-light !important;
+}
+
+
+@media screen and (max-width: 690px) {
+    #outer-wrapper{
+        width:calc(100% - 40px);
+        padding:20px;
+    }
+    #welcome-text{
+        font-size: 101px;
+    }
+}
