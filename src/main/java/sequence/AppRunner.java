@@ -37,6 +37,9 @@ public class AppRunner {
 	@Autowired
 	ProspectRepo prospectRepo;
 
+	@Autowired
+	EffortRepo effortRepo;
+
 
 	@PostConstruct
 	public void startup() {
@@ -107,6 +110,21 @@ public class AppRunner {
 		}
 		log.info("Prospect Activities : " + prospectRepo.getActivityCount());
 
+
+		for(int z = 0; z < 5; z++){
+			Prospect prospect = prospects.get(Sequence.getNumber(prospectNames.length - 1));
+			Effort effort = new Effort();
+			effort.setProspectId(prospect.getId());
+			effort.setStartDate(Sequence.getYesterday(Sequence.getNumber()));
+			effortRepo.save(effort);
+
+			for(int k = 0; k < Sequence.getNumber(9); k++){
+
+			}
+
+			effort.setFinished(true);
+			effort.setFinishedDate(Sequence.getDate());
+		}
 
 
 		return true;

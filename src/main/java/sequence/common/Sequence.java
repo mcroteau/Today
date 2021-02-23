@@ -101,8 +101,6 @@ public class Sequence {
 	public static long getYesterday(int day) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -day);
-		Sequence.clearTime(cal);
-
 		long date = getDateFormatted(cal);
 		return date;
 	}

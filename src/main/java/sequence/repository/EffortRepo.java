@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import sequence.model.Effort;
 import sequence.model.EffortActivity;
+import sequence.model.ProspectActivity;
 
 import java.util.List;
 
@@ -97,38 +98,32 @@ public class EffortRepo {
         return true;
     }
 
-    public boolean updateActivity(EffortActivity effortActivity) {
-        String sql = "update effort_activities set complete_date = ?, completed = ? where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-                effortActivity.getCompleteDate(), effortActivity.getCompleted(), effortActivity.getId()
-        });
-        return true;
-    }
+    public List<ProspectActivity> getActivities(Long id){
+        String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
+                "from prospect_activities pa inner join activity a on pa.activity_id = a.id " +
+                "where pa.effort_id = ? order by pa.complete_date asc";
 
-    public List<EffortActivity> getActivities(Long id){
-        String sql = "select ea.id, ea.activity_id, ea.effort_id, ea.complete_date, a.name " +
-                "from effort_activities ea inner join activity a on ea.activity_id = a.id " +
-                "where ea.id = ? order by ea.complete_date asc";
-
-        List<EffortActivity> effortActivities = jdbcTemplate.query(sql, new Object[]{ id }, new BeanPropertyRowMapper<>(EffortActivity.class));
-        return effortActivities;
+        List<ProspectActivity> prospectActivities = jdbcTemplate.query(sql,
+                new Long[]{ id },
+                new BeanPropertyRowMapper<>(ProspectActivity.class));
+        return prospectActivities;
     }
 
     public boolean deleteActivity(Long id) {
-        String sql = "delete from effort_activities where id = ?";
+        String sql = "delete from prospect_activities where effort_id = ?";
         jdbcTemplate.update(sql, new Object[] {id });
         return true;
     }
 
     public boolean deleteActivities(Long id) {
-        String sql = "delete from effort_activities where effort_id = ?";
+        String sql = "delete from prospect_activities where effort_id = ?";
         jdbcTemplate.update(sql, new Object[] {id });
         return true;
     }
 
-    public Long getActivityCount() {
-        String sql = "select count(*) from effort_activities";
-        Long count = jdbcTemplate.queryForObject(sql, new Object[]{ }, Long.class);
+    public Long getActivityCount(Long id) {
+        String sql = "select count(*) from prospect_activities where effort_id = ?";
+        Long count = jdbcTemplate.queryForObject(sql, new Long[]{ id }, Long.class);
         return count;
     }
 }

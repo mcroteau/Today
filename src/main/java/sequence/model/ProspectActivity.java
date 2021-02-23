@@ -12,6 +12,7 @@ public class ProspectActivity {
     Long id;
     Long prospectId;
     Long activityId;
+    Long effortId;
     Long completeDate;
     Boolean completed;
 
@@ -39,6 +40,14 @@ public class ProspectActivity {
 
     public void setActivityId(Long activityId) {
         this.activityId = activityId;
+    }
+
+    public Long getEffortId() {
+        return effortId;
+    }
+
+    public void setEffortId(Long effortId) {
+        this.effortId = effortId;
     }
 
     public Long getCompleteDate() {

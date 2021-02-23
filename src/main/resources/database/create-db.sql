@@ -46,7 +46,9 @@ create table activities (
 
 create table prospect_activities (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
-	finished_date bigint default 0,
+	complete_date bigint default 0,
+	completed boolean false,
+	effort_id bigint REFERENCES efforts(id),
 	activity_id bigint NOT NULL REFERENCES activities(id),
 	prospect_id bigint NOT NULL REFERENCES prospects(id)
 );
@@ -57,14 +59,6 @@ create table efforts (
 	end_date bigint,
 	finished boolean default false,
 	prospect_id bigint NOT NULL REFERENCES prospects(id)
-);
-
-create table effort_activities (
-	id bigint PRIMARY KEY AUTO_INCREMENT,
-	complete_date bigint,
-	completed boolean default false,
-	effort_id bigint NOT NULL REFERENCES efforts(id)
-	activity_id bigint NOT NULL REFERENCES activities(id)
 );
 
 
