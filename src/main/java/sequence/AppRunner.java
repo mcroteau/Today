@@ -8,10 +8,7 @@ import sequence.access.SequenceAccessor;
 import sequence.model.*;
 import sequence.common.Constants;
 import org.springframework.stereotype.Component;
-import sequence.repository.ProspectRepo;
-import sequence.repository.RoleRepo;
-import sequence.repository.StatusRepo;
-import sequence.repository.UserRepo;
+import sequence.repository.*;
 import xyz.strongperched.Parakeet;
 
 import javax.annotation.PostConstruct;
@@ -32,14 +29,17 @@ public class AppRunner {
 	RoleRepo roleRepo;
 
 	@Autowired
-	ProspectRepo prospectRepo;
+	StatusRepo statusRepo;
 
 	@Autowired
-	StatusRepo statusRepo;
+	ActivityRepo activityRepo;
+
+	@Autowired
+	ProspectRepo prospectRepo;
 
 
 	@PostConstruct
-	public void init() {
+	public void startup() {
 		Parakeet.perch(accessor);
 		createRoles();
 		createAdministrator();
@@ -50,8 +50,8 @@ public class AppRunner {
 
 	private boolean createStatuses(){
 		String[] names = { "Prospect",
-				              "Working",
-							  "Customer" };
+						   "Working",
+						   "Customer" };
 
 		for(String name: names){
 			Status status = new Status();
@@ -64,12 +64,16 @@ public class AppRunner {
 	}
 
 	private boolean createMocks(){
-		String[] names = { "Blue Water Trucking Co.",
-							"Lovely Hour Meditation",
-							"Derbin's Fluffanutters" };
+		String[] prospectNames = { "Blue Water Trucking Co.",
+							"Love Hour Meditation",
+							"Jeff's Silly Suds Brew House",
+							"Dr. Suese's Chiropractor's Masseuse",
+							"Tidy Tim's Bean Factory",
+							"Grand Rapids Auto Park",
+							"Dirken's Fluffanutters" };
 
 		List<Status> statuses = statusRepo.getList();
-		for(String name: names){
+		for(String name: prospectNames){
 			Status status = statuses.get(Sequence.getNumber(statuses.size() - 1));
 			Prospect prospect = new Prospect();
 			prospect.setName(name);
@@ -78,8 +82,33 @@ public class AppRunner {
 			prospect.setStatusId(status.getId());
 			prospectRepo.save(prospect);
 		}
-
 		log.info("Prospects : " + prospectRepo.getCount());
+
+
+		String[] activityNames = {  "Call",
+									"Email",
+									"Meeting",
+									"Demo"  };
+		for(String name : activityNames){
+			Activity activity = new Activity();
+			activity.setName(name);
+			activityRepo.save(activity);
+		}
+		log.info("Activities : " + activityRepo.getCount());
+
+		List<Prospect> prospects = prospectRepo.getList();
+		for(Prospect prospect: prospects){
+			int index = Sequence.getNumber(activityNames.length - 1);
+			Activity activity = activityRepo.get(index);
+			ProspectActivity prospectActivity = new ProspectActivity();
+			prospectActivity.setActivityId(activity.getId());
+			prospectActivity.setProspectId(prospect.getId());
+			prospectRepo.saveActivity(prospectActivity);
+		}
+		log.info("Prospect Activities : " + prospectRepo.getActivityCount());
+
+
+
 		return true;
 	}
 

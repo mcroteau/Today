@@ -1,8 +1,12 @@
 package sequence.service;
 
+import org.springframework.ui.Model;
 import sequence.model.Prospect;
+import sequence.model.ProspectCount;
+import sequence.model.Status;
 import sequence.model.Town;
 import sequence.repository.ProspectRepo;
+import sequence.repository.StatusRepo;
 import sequence.repository.TownRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +24,13 @@ public class BasicService {
     @Autowired
     AuthService authService;
 
-    public String index() {
+    @Autowired
+    ProspectRepo prospectRepo;
+
+    @Autowired
+    StatusRepo statusRepo;
+
+    public String index(ModelMap modelMap) {
         if(!authService.isAuthenticated()){
             return "redirect:/signin";
         }
@@ -31,6 +41,21 @@ public class BasicService {
             Avg Sequence.
             Avg Sequence for Customers
          */
+        Long count = prospectRepo.getCount();
+        List<ProspectCount> prospectCounts = new ArrayList<>();
+        List<Status> statuses = statusRepo.getList();
+        for(Status status: statuses){
+            ProspectCount prospectCount = new ProspectCount();
+            prospectCount.setCount(prospectRepo.getCount(status.getId()));
+            prospectCount.setStatus(status);
+            prospectCounts.add(prospectCount);
+        }
+
+
+
+
+        modelMap.put("count", count);
+        modelMap.put("prospectCounts", prospectCounts);
 
         return "index";
     }

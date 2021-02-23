@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import sequence.model.Prospect;
+import sequence.model.ProspectActivity;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class ProspectRepo {
     public Long getCount() {
         String sql = "select count(*) from prospects";
         Long count = jdbcTemplate.queryForObject(sql, Long.class);
+        return count;
+    }
+
+    public Long getCount(Long id) {
+        String sql = "select count(*) from prospects where status_id = ?";
+        Long count = jdbcTemplate.queryForObject(sql, new Object[]{ id }, Long.class);
         return count;
     }
 
@@ -85,5 +92,19 @@ public class ProspectRepo {
         String sql = "delete from prospect_actions where prospect_id = ?";
         jdbcTemplate.update(sql, new Object[] {id });
         return true;
+    }
+
+    public boolean saveActivity(ProspectActivity prospectActivity) {
+        String sql = "insert into prospect_activites (activity_id, prospect_id) values (?, ?)";
+        jdbcTemplate.update(sql, new Object[] {
+                prospectActivity.getActivityId(), prospectActivity.getProspectId()
+        });
+        return true;
+    }
+
+    public Long getActivityCount() {
+        String sql = "select count(*) from prospect_activities";
+        Long count = jdbcTemplate.queryForObject(sql, new Object[]{ }, Long.class);
+        return count;
     }
 }

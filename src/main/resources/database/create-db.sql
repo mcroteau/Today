@@ -26,7 +26,7 @@ create table user_roles(
 create table statuses (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name character varying(131) NOT NULL,
-	constraint unique_status_name unique(name)
+	constraint status_name unique(name)
 );
 
 create table prospects (
@@ -35,5 +35,22 @@ create table prospects (
 	email text,
 	phone character varying(143),
 	status_id bigint NOT NULL REFERENCES statuses(id),
-	constraint unique_prospect_name unique(name)
+	constraint prospect_name unique(name)
+);
+
+create table activities (
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	name character varying(254) NOT NULL,
+	constraint activity_name unique(name)
+);
+
+create table effort (
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	prospect_id bigint NOT NULL REFERENCES prospects(id),
+	finished boolean
+);
+
+create table effort_activities (
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	activity_id bigint NOT NULL REFERENCES activities(id)
 );
