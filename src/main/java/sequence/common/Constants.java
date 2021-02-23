@@ -20,9 +20,8 @@ public class Constants {
 	public static final String USER_MAINTENANCE = "users:";
 
 	public static final String ZERO_TIME_FORMAT  = "yyyyMMdd";
-    public static final String DATE_FORMAT  = "yyyyMMddHHmmssSSS";
-	public static final String DATE_GRAPH_FORMAT  = "dd MMM";
-	public static final String DATE_ACTUAL_FORMAT  = "hh:mm z";
+    public static final String DATE_FORMAT  = "yyyyMMddHHmm";
+	public static final String DATE_PRETTY  = "dd MMM HH:mm";
 
 	public static final String MOCK_ENVIRONMENT = "Mock";
 	public static final String DEV_ENVIRONMENT = "Dev";

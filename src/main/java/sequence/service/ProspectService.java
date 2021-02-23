@@ -89,7 +89,7 @@ public class ProspectService {
             return "redirect:/unauthorized";
         }
 
-        prospectRepo.deleteActions(id);
+        prospectRepo.deleteActivities(id);
         prospectRepo.delete(id);
         redirect.addFlashAttribute("message", "Successfully deleted prospect.");
 

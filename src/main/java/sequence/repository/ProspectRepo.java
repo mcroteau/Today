@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import sequence.model.EffortActivity;
 import sequence.model.Prospect;
 import sequence.model.ProspectActivity;
 
@@ -88,10 +89,13 @@ public class ProspectRepo {
         return true;
     }
 
-    public boolean deleteActions(Long id) {
-        String sql = "delete from prospect_actions where prospect_id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
-        return true;
+    public ProspectActivity getActivity(long id){
+        String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
+                "from prospect_activities pa inner join activity a on pa.activity_id = a.id " +
+                "where pa.id = ?";
+        ProspectActivity prospectActivity = jdbcTemplate.queryForObject(sql, new Object[]{ id },
+                new BeanPropertyRowMapper<>(ProspectActivity.class));
+        return prospectActivity;
     }
 
     public boolean saveActivity(ProspectActivity prospectActivity) {
@@ -99,6 +103,35 @@ public class ProspectRepo {
         jdbcTemplate.update(sql, new Object[] {
                 prospectActivity.getActivityId(), prospectActivity.getProspectId()
         });
+        return true;
+    }
+
+    public boolean updateActivity(ProspectActivity prospectActivity) {
+        String sql = "update prospect_activities set complete_date = ?, completed = ? where id = ?";
+        jdbcTemplate.update(sql, new Object[] {
+                prospectActivity.getCompleteDate(), prospectActivity.getCompleted(), prospectActivity.getId()
+        });
+        return true;
+    }
+
+    public List<ProspectActivity> getActivities(Long id){
+        String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
+                "from prospect_activities pa inner join activity a on pa.activity_id = a.id " +
+                "where pa.id = ? order by pa.complete_date asc";
+
+        List<ProspectActivity> prospectActivities = jdbcTemplate.query(sql, new Object[]{ id }, new BeanPropertyRowMapper<>(ProspectActivity.class));
+        return prospectActivities;
+    }
+
+    public boolean deleteActivity(Long id) {
+        String sql = "delete from prospect_activities where id = ?";
+        jdbcTemplate.update(sql, new Object[] {id });
+        return true;
+    }
+
+    public boolean deleteActivities(Long id) {
+        String sql = "delete from prospect_activities where prospect_id = ?";
+        jdbcTemplate.update(sql, new Object[] {id });
         return true;
     }
 
