@@ -37,22 +37,10 @@ public class UserService {
     EmailService emailService;
 
     @Autowired
-    ReCaptchaService reCaptchaService;
-
-    @Autowired
-    LocationService locationService;
-
-    @Autowired
-    LightService lightService;
-
-    @Autowired
     UserRepo userRepo;
 
     @Autowired
     RoleRepo roleRepo;
-
-    @Autowired
-    DonationRepo donationRepo;
 
     @Autowired
     ProspectRepo prospectRepo;
@@ -88,67 +76,6 @@ public class UserService {
         }
 
         User user = userRepo.get(id);
-        List<Donation> donations = donationRepo.getList(user.getId());
-        List<Charge> charges = new ArrayList<>();
-        List<Subscription> subscriptions = new ArrayList<>();
-
-        for(Donation donation: donations) {
-
-            Stripe.apiKey = lightService.getApiKey(donation.getLocationId());
-
-            Prospect storedProspect = null;
-            if(donation.getLocationId() != null) {
-                storedProspect = prospectRepo.get(donation.getLocationId());
-            }
-
-            if(donation.getChargeId() != null &&
-                    !donation.getChargeId().equals("")) {
-                try{
-                    com.stripe.model.Charge stripeCharge = com.stripe.model.Charge.retrieve(donation.getChargeId());
-                    BigDecimal amount = new BigDecimal(stripeCharge.getAmount()).divide(new BigDecimal(100));
-
-                    Charge charge = new Charge();
-                    charge.setAmount(amount);
-                    charge.setId(donation.getId());
-                    charge.setStripeId(stripeCharge.getId());
-                    if(storedProspect != null){
-                        charge.setLocation(storedProspect);
-                    }
-                    charges.add(charge);
-
-                }catch(Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-
-            if(donation.getSubscriptionId() != null &&
-                    !donation.getSubscriptionId().equals("")) {
-                try {
-                    com.stripe.model.Subscription stripeSubscription = com.stripe.model.Subscription.retrieve(donation.getSubscriptionId());
-                    Price price = stripeSubscription.getItems().getData().get(0).getPrice();
-                    BigDecimal amountPre = price.getUnitAmountDecimal();
-                    BigDecimal amount = amountPre.divide(new BigDecimal(100));
-
-                    Subscription subscription = new Subscription();
-                    subscription.setAmount(amount);
-                    subscription.setId(donation.getId());
-                    subscription.setStripeId(stripeSubscription.getId());
-                    if(storedProspect != null) {
-                        subscription.setLocation(storedProspect);
-                    }
-                    if(donation.isCancelled()){
-                        subscription.setCancelled(true);
-                    }
-                    subscriptions.add(subscription);
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-
-        modelMap.put("charges", charges);
-        modelMap.put("subscriptions", subscriptions);
         modelMap.put("user", user);
 
         return "user/edit";
@@ -200,30 +127,14 @@ public class UserService {
             return Constants.UNAUTHORIZED_REDIRECT;
         }
 
-        User user = userRepo.get(id);
-
         redirect.addFlashAttribute("message", "Successfully deleted user");
-
         return "redirect:/admin/users";
     }
-
-
-    public String signup(String uri, ModelMap modelMap) {
-        authService.signout();
-        return "user/signup";
-    }
-
 
     public String register(String reCaptchaResponse, User user, HttpServletRequest req, RedirectAttributes redirect) {
 
         if(user == null){
             redirect.addFlashAttribute("message", "a error on our end, please give it another go.");
-            return "redirect:/signup";
-        }
-
-        if(!reCaptchaService.validates(reCaptchaResponse) &&
-                !Sequence.isTestEnv(env)){
-            redirect.addFlashAttribute("message", "Did you forget to check the box thing?");
             return "redirect:/signup";
         }
 
@@ -300,20 +211,20 @@ public class UserService {
                 return ("redirect:/user/reset");
             }
 
-            String resetUuid = Sequence.getRandomString(13);
+            String resetUuid = Sequence.getString(13);
             user.setUuid(resetUuid);
             userRepo.updateUuid(user);
 
             StringBuffer url = req.getRequestURL();
 
-            String[] split = url.toString().split("/z/");
+            String[] split = url.toString().split(req.getContextPath());
             String httpSection = split[0];
 
-            String resetUrl = httpSection + "/z/user/confirm?";
+            String resetUrl = httpSection + req.getContextPath() + "/user/confirm?";
             String params = "username=" + URLEncoder.encode(user.getUsername(), "utf-8") + "&uuid=" + resetUuid;
             resetUrl += params;
 
-            String body = "<h1>Sequence +Gain</h1>" +
+            String body = "<h1>Sequence</h1>" +
                     "<p>Reset password</p>" +
                     "<p><a href=\"" + resetUrl + "\">" + resetUrl + "</a></p>";
 

@@ -55,13 +55,6 @@ public class UserController {
 								 @PathVariable Long id) {
 		return userService.deleteUser(id, modelMap, redirect);
 	}
-	
-	@GetMapping(value="/signup")
-	public String signup(ModelMap modelMap,
-						 @RequestParam(value="uri", required = false ) String uri){
-		return userService.signup(uri, modelMap);
-	}
-	
 
 	@PostMapping(value="/register")
 	protected String register(@ModelAttribute("user") User user,
@@ -70,7 +63,6 @@ public class UserController {
 							  RedirectAttributes redirect){
     	return userService.register(reCaptchaResponse, user, request, redirect);
 	}
-
 
 	@GetMapping(value="/user/reset")
 	public String reset(){

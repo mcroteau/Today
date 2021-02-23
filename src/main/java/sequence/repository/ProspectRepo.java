@@ -80,4 +80,10 @@ public class ProspectRepo {
         jdbcTemplate.update(sql, new Object[] {id });
         return true;
     }
+
+    public boolean deleteActions(Long id) {
+        String sql = "delete from prospect_actions where prospect_id = ?";
+        jdbcTemplate.update(sql, new Object[] {id });
+        return true;
+    }
 }
