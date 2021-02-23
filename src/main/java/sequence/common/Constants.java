@@ -9,6 +9,10 @@ public class Constants {
 	public static final String PERMISSION_REQUIRED = "permission required";
 	public static final String UNAUTHORIZED_REDIRECT = "redirect:/unauthorized";
 
+	public static final String PROSPECT_STATUS = "Prospect";
+	public static final String WORKING_STATUS = "Working";
+	public static final String CUSTOMER_STATUS = "Customer";
+
 	public static final String ADMIN_USERNAME = "croteau.mike@gmail.com";
 	public static final String GUEST_USERNAME = "croteau.mike@outlook.com";
 	public static final String PASSWORD = "password";

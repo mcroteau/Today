@@ -56,9 +56,9 @@ public class EffortRepo {
     }
 
     public Effort save(Effort effort){
-        String sql = "insert into efforts (start_date, end_date, prospect_id) values (?, ?, ?, ?)";
+        String sql = "insert into efforts (start_date, end_date, prospect_id, starting_status_id) values (?, ?, ?, ?)";
         jdbcTemplate.update(sql, new Object[] {
-            effort.getStartDate(), effort.getEndDate(), effort.getProspectId()
+            effort.getStartDate(), effort.getEndDate(), effort.getProspectId(), effort.getStartingStatusId()
         });
 
         Long id = getId();
@@ -67,9 +67,9 @@ public class EffortRepo {
     }
 
     public boolean update(Effort effort) {
-        String sql = "update efforts set end_date = ?, finished = ? where id = ?";
+        String sql = "update efforts set end_date = ?, finished = ?, ending_status_id = ?, success = ? where id = ?";
         jdbcTemplate.update(sql, new Object[] {
-            effort.getEndDate(), effort.getFinished()
+            effort.getEndDate(), effort.getFinished(), effort.getEndingStatusId(), effort.getSuccess(), effort.getId()
         });
         return true;
     }
@@ -82,7 +82,7 @@ public class EffortRepo {
 
     public List<ProspectActivity> getActivities(Long id){
         String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
-                "from prospect_activities pa inner join activity a on pa.activity_id = a.id " +
+                "from prospect_activities pa inner join activities a on pa.activity_id = a.id " +
                 "where pa.effort_id = ? order by pa.complete_date asc";
 
         List<ProspectActivity> prospectActivities = jdbcTemplate.query(sql,
@@ -103,9 +103,15 @@ public class EffortRepo {
         return true;
     }
 
-    public Long getActivityCount(Long id) {
-        String sql = "select count(*) from prospect_activities where effort_id = ?";
-        Long count = jdbcTemplate.queryForObject(sql, new Long[]{ id }, Long.class);
+    public Long getActivityCount() {
+        String sql = "select count(*) from prospect_activities where effort_id >= 0";
+        Long count = jdbcTemplate.queryForObject(sql, new Long[]{ }, Long.class);
         return count;
+    }
+
+    public List<Effort> getSuccesses() {
+        String sql = "select * from efforts where success = true";
+        List<Effort> efforts = jdbcTemplate.query(sql, new Object[]{ }, new BeanPropertyRowMapper<>(Effort.class));
+        return efforts;
     }
 }

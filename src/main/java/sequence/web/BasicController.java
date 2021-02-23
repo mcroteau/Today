@@ -3,6 +3,7 @@ package sequence.web;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +21,8 @@ public class BasicController {
 	BasicService basicService;
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String index(){
-		return basicService.index();
+	public String index(ModelMap modelMap){
+		return basicService.index(modelMap);
 	}
 
 	@RequestMapping(value="/signin", method=RequestMethod.GET)

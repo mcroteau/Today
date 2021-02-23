@@ -25,8 +25,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div id="header-wrapper">
-                <a href="/z" class="logo">Dynamics <br/><strong class="gain">+Gain</strong><br/>
-                    <span class="tagline">Goal to Remove Barriers.</span>
+                <a href="/z" class="logo">
+                    <img src="/z/assets/media/icon.png" style="width:50px;"/><br/>
+                    Sequence<br/>
+                    <span class="tagline"></span>
                 </a>
 
                 <div id="navigation">
@@ -38,7 +40,7 @@
             <decorator:body />
 
             <div id="footer-navigation" style="margin-top:30px;">
-                <%if(Parakeet.hasRole(Constants.ROLE_ADMIN)){%>
+                <%if(Parakeet.hasRole(Constants.ADMIN_ROLE)){%>
                     <a href="/z/admin/towns" class="href-dotted">Towns</a>&nbsp;&nbsp;&nbsp;
                     <a href="/z/admin/prospects" class="href-dotted">Locations</a>
                 <%}%>
@@ -60,13 +62,5 @@
         <span class="regular">&copy; 2021 <br/>Dynamics<br/> <strong class="gain">+Gain</strong></span>
     </div>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EF5QWVVWFK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-EF5QWVVWFK');
-    </script>
 </body>
 </html>

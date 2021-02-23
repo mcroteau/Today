@@ -52,9 +52,9 @@ public class AppRunner {
 	}
 
 	private boolean createStatuses(){
-		String[] names = { "Prospect",
-						   "Working",
-						   "Customer" };
+		String[] names = { Constants.PROSPECT_STATUS,
+						   Constants.WORKING_STATUS,
+						   Constants.CUSTOMER_STATUS };
 
 		for(String name: names){
 			Status status = new Status();
@@ -99,10 +99,12 @@ public class AppRunner {
 		}
 		log.info("Activities : " + activityRepo.getCount());
 
+		List<Activity> activities = activityRepo.getList();
+
 		List<Prospect> prospects = prospectRepo.getList();
 		for(Prospect prospect: prospects){
 			int index = Sequence.getNumber(activityNames.length - 1);
-			Activity activity = activityRepo.get(index);
+			Activity activity = activities.get(index);
 			ProspectActivity prospectActivity = new ProspectActivity();
 			prospectActivity.setActivityId(activity.getId());
 			prospectActivity.setProspectId(prospect.getId());
@@ -110,28 +112,39 @@ public class AppRunner {
 		}
 		log.info("Prospect Activities : " + prospectRepo.getActivityCount());
 
+		Status endingStatus = statuses.get(2);
+		for(int z = 0; z < 25; z++){
+			Status startingStatus = statuses.get(Sequence.getNumber(statuses.size() - 1));
 
-		for(int z = 0; z < 5; z++){
 			Prospect prospect = prospects.get(Sequence.getNumber(prospectNames.length - 1));
 			Effort effort = new Effort();
 			effort.setProspectId(prospect.getId());
+			effort.setStartingStatusId(startingStatus.getId());
 			effort.setStartDate(Sequence.getYesterday(Sequence.getNumber(31)));
 			Effort savedEffort = effortRepo.save(effort);
 
 			for(int k = 0; k < Sequence.getNumber(7); k++){
 				int index = Sequence.getNumber(activityNames.length - 1);
-				Activity activity = activityRepo.get(index);
+				Activity activity = activities.get(index);
 				ProspectActivity prospectActivity = new ProspectActivity();
 				prospectActivity.setEffortId(savedEffort.getId());
 				prospectActivity.setActivityId(activity.getId());
 				prospectActivity.setProspectId(prospect.getId());
 				prospectActivity.setCompleteDate(Sequence.getDate());
+				if(k % 2 == 0) {
+					prospectActivity.setCompleted(true);
+				}
 				prospectRepo.saveActivity(prospectActivity);
 			}
 
-			effort.setFinished(true);
-			effort.setFinishedDate(Sequence.getDate());
-			effortRepo.update(effort);
+			savedEffort.setEndingStatusId(endingStatus.getId());
+			savedEffort.setSuccess(true);
+			savedEffort.setFinished(true);
+			savedEffort.setEndDate(Sequence.getDate());
+			effortRepo.update(savedEffort);
+
+			log.info("Efforts : " + effortRepo.getCount());
+			log.info("Effort Activities : " + effortRepo.getActivityCount());
 		}
 
 		return true;

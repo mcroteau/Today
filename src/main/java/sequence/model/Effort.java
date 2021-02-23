@@ -2,13 +2,22 @@ package sequence.model;
 
 import sequence.common.Sequence;
 
+import java.util.List;
+
 public class Effort {
     Long id;
     Long startDate;
     Long endDate;
+    Long startingStatusId;
+    Long endingStatusId;
+    Status startingStatus;
+    Status endingStatus;
     Long prospectId;
+    Prospect prospect;
+    Boolean success;
     Boolean finished;
-    Long finishedDate;
+
+    List<ProspectActivity> prospectActivities;
 
     public Long getId() {
         return id;
@@ -34,12 +43,60 @@ public class Effort {
         this.endDate = endDate;
     }
 
+    public Long getStartingStatusId() {
+        return startingStatusId;
+    }
+
+    public void setStartingStatusId(Long startingStatusId) {
+        this.startingStatusId = startingStatusId;
+    }
+
+    public Long getEndingStatusId() {
+        return endingStatusId;
+    }
+
+    public void setEndingStatusId(Long endingStatusId) {
+        this.endingStatusId = endingStatusId;
+    }
+
+    public Status getStartingStatus() {
+        return startingStatus;
+    }
+
+    public void setStartingStatus(Status startingStatus) {
+        this.startingStatus = startingStatus;
+    }
+
+    public Status getEndingStatus() {
+        return endingStatus;
+    }
+
+    public void setEndingStatus(Status endingStatus) {
+        this.endingStatus = endingStatus;
+    }
+
     public Long getProspectId() {
         return prospectId;
     }
 
     public void setProspectId(Long prospectId) {
         this.prospectId = prospectId;
+    }
+
+    public Prospect getProspect() {
+        return prospect;
+    }
+
+    public void setProspect(Prospect prospect) {
+        this.prospect = prospect;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
     public Boolean getFinished() {
@@ -50,19 +107,19 @@ public class Effort {
         this.finished = finished;
     }
 
-    public Long getFinishedDate() {
-        return finishedDate;
-    }
-
-    public void setFinishedDate(Long finishedDate) {
-        this.finishedDate = finishedDate;
-    }
-
     public String getPrettyStartDate() {
         return Sequence.getPretty(startDate);
     }
 
     public String getPrettyEndDate() {
         return Sequence.getPretty(endDate);
+    }
+
+    public List<ProspectActivity> getProspectActivities() {
+        return prospectActivities;
+    }
+
+    public void setProspectActivities(List<ProspectActivity> prospectActivities) {
+        this.prospectActivities = prospectActivities;
     }
 }

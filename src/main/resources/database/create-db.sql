@@ -44,21 +44,25 @@ create table activities (
 	constraint activity_name unique(name)
 );
 
-create table prospect_activities (
-	id bigint PRIMARY KEY AUTO_INCREMENT,
-	complete_date bigint default 0,
-	completed boolean false,
-	effort_id bigint REFERENCES efforts(id),
-	activity_id bigint NOT NULL REFERENCES activities(id),
-	prospect_id bigint NOT NULL REFERENCES prospects(id)
-);
-
 create table efforts (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	start_date bigint default 0,
 	end_date bigint,
 	finished boolean default false,
+	success boolean default false,
+	starting_status_id bigint NOT NULL REFERENCES statuses(id),
+	ending_status_id bigint REFERENCES statuses(id),
 	prospect_id bigint NOT NULL REFERENCES prospects(id)
 );
+
+create table prospect_activities (
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	complete_date bigint default 0,
+	completed boolean default false,
+	effort_id bigint REFERENCES efforts(id),
+	activity_id bigint NOT NULL REFERENCES activities(id),
+	prospect_id bigint NOT NULL REFERENCES prospects(id)
+);
+
 
 

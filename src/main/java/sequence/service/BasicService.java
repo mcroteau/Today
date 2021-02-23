@@ -1,22 +1,17 @@
 package sequence.service;
 
+import org.apache.commons.collections.ArrayStack;
 import org.springframework.ui.Model;
-import sequence.model.Prospect;
-import sequence.model.ProspectCount;
-import sequence.model.Status;
-import sequence.model.Town;
-import sequence.repository.ProspectRepo;
-import sequence.repository.StatusRepo;
-import sequence.repository.TownRepo;
+import sequence.common.Constants;
+import sequence.model.*;
+import sequence.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
 public class BasicService {
@@ -29,6 +24,12 @@ public class BasicService {
 
     @Autowired
     StatusRepo statusRepo;
+
+    @Autowired
+    EffortRepo effortRepo;
+
+    @Autowired
+    ActivityRepo activityRepo;
 
     public String index(ModelMap modelMap) {
         if(!authService.isAuthenticated()){
@@ -51,10 +52,27 @@ public class BasicService {
             prospectCounts.add(prospectCount);
         }
 
+        List<Effort> efforts = effortRepo.getSuccesses();
+        for(Effort effort: efforts){
+            Prospect prospect = prospectRepo.get(effort.getProspectId());
+            effort.setProspect(prospect);
 
+            Status startingStatus = statusRepo.get(effort.getStartingStatusId());
+            Status endingStatus = statusRepo.get(effort.getEndingStatusId());
 
+            effort.setStartingStatus(startingStatus);
+            effort.setEndingStatus(endingStatus);
 
-        modelMap.put("count", count);
+            List<ProspectActivity> prospectActivities = effortRepo.getActivities(effort.getId());
+            for(ProspectActivity prospectActivity: prospectActivities){
+                Activity activity = activityRepo.get(prospectActivity.getActivityId());
+                prospectActivity.setName(activity.getName());
+            }
+            effort.setProspectActivities(prospectActivities);
+        }
+
+        modelMap.put("prospectCount", count);
+        modelMap.put("efforts", efforts);
         modelMap.put("prospectCounts", prospectCounts);
 
         return "index";

@@ -98,7 +98,7 @@ public class ProspectRepo {
     }
 
     public boolean saveActivity(ProspectActivity prospectActivity) {
-        String sql = "insert into prospect_activites (activity_id, prospect_id, effort_id) values (?, ?, ?)";
+        String sql = "insert into prospect_activities (activity_id, prospect_id, effort_id) values (?, ?, ?)";
         jdbcTemplate.update(sql, new Object[] {
                 prospectActivity.getActivityId(), prospectActivity.getProspectId(), prospectActivity.getEffortId()
         });
@@ -115,7 +115,7 @@ public class ProspectRepo {
 
     public List<ProspectActivity> getActivities(Long id){
         String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
-                "from prospect_activities pa inner join activity a on pa.activity_id = a.id " +
+                "from prospect_activities pa inner join activities a on pa.activity_id = a.id " +
                 "where pa.id = ? order by pa.complete_date asc";
 
         List<ProspectActivity> prospectActivities = jdbcTemplate.query(sql, new Object[]{ id }, new BeanPropertyRowMapper<>(ProspectActivity.class));

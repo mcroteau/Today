@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/layouts">
     <decorator name="guest" page="guest.jsp">
-        <pattern>*/home</pattern>
-        <pattern>*/developers</pattern>
-        <pattern>*/about</pattern>
-        <pattern>*/cost</pattern>
-        <pattern>*/towns</pattern>
-        <pattern>*/shelters</pattern>
-        <pattern>*/donate*</pattern>
-        <pattern>*/privacy</pattern>
         <pattern>*/signin</pattern>
         <pattern>*/signup</pattern>
-        <pattern>*/towns/*</pattern>
-        <pattern>*/prospects/*</pattern>
         <pattern>*/user/reset*</pattern>
         <pattern>*/user/send</pattern>
         <pattern>*/user/confirm</pattern>
     </decorator>
     <decorator name="auth" page="auth.jsp">
-        <pattern>*/user*</pattern>
-        <pattern>*/admin/towns*</pattern>
-        <pattern>*/admin/prospects*</pattern>
-        <pattern>*/admin/count*</pattern>
+        <pattern>*/*</pattern>
+        <pattern>*/user</pattern>
+        <pattern>*/prospects*</pattern>
     </decorator>
 </decorators>
