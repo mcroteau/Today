@@ -115,17 +115,24 @@ public class AppRunner {
 			Prospect prospect = prospects.get(Sequence.getNumber(prospectNames.length - 1));
 			Effort effort = new Effort();
 			effort.setProspectId(prospect.getId());
-			effort.setStartDate(Sequence.getYesterday(Sequence.getNumber()));
-			effortRepo.save(effort);
+			effort.setStartDate(Sequence.getYesterday(Sequence.getNumber(31)));
+			Effort savedEffort = effortRepo.save(effort);
 
-			for(int k = 0; k < Sequence.getNumber(9); k++){
-
+			for(int k = 0; k < Sequence.getNumber(7); k++){
+				int index = Sequence.getNumber(activityNames.length - 1);
+				Activity activity = activityRepo.get(index);
+				ProspectActivity prospectActivity = new ProspectActivity();
+				prospectActivity.setEffortId(savedEffort.getId());
+				prospectActivity.setActivityId(activity.getId());
+				prospectActivity.setProspectId(prospect.getId());
+				prospectActivity.setCompleteDate(Sequence.getDate());
+				prospectRepo.saveActivity(prospectActivity);
 			}
 
 			effort.setFinished(true);
 			effort.setFinishedDate(Sequence.getDate());
+			effortRepo.update(effort);
 		}
-
 
 		return true;
 	}

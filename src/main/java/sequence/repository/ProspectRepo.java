@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import sequence.model.EffortActivity;
 import sequence.model.Prospect;
 import sequence.model.ProspectActivity;
 
@@ -99,9 +98,9 @@ public class ProspectRepo {
     }
 
     public boolean saveActivity(ProspectActivity prospectActivity) {
-        String sql = "insert into prospect_activites (activity_id, prospect_id) values (?, ?)";
+        String sql = "insert into prospect_activites (activity_id, prospect_id, effort_id) values (?, ?, ?)";
         jdbcTemplate.update(sql, new Object[] {
-                prospectActivity.getActivityId(), prospectActivity.getProspectId()
+                prospectActivity.getActivityId(), prospectActivity.getProspectId(), prospectActivity.getEffortId()
         });
         return true;
     }

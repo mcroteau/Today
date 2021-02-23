@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import sequence.model.Effort;
-import sequence.model.EffortActivity;
 import sequence.model.ProspectActivity;
 
 import java.util.List;
@@ -78,23 +77,6 @@ public class EffortRepo {
     public boolean delete(long id){
         String sql = "delete from efforts where id = ?";
         jdbcTemplate.update(sql, new Object[] {id });
-        return true;
-    }
-
-    public EffortActivity getActivity(long id){
-        String sql = "select ea.id, ea.activity_id, ea.effort_id, ea.complete_date, a.name " +
-                "from effort_activities ea inner join activity a on ea.activity_id = a.id " +
-                "where ea.id = ?";
-        EffortActivity effortActivity = jdbcTemplate.queryForObject(sql, new Object[]{ id },
-                new BeanPropertyRowMapper<>(EffortActivity.class));
-        return effortActivity;
-    }
-
-    public boolean saveActivity(EffortActivity effortActivity) {
-        String sql = "insert into effort_activites (effort_id, activity_id) values (?, ?)";
-        jdbcTemplate.update(sql, new Object[] {
-                effortActivity.getEffortId(), effortActivity.getActivityId()
-        });
         return true;
     }
 
