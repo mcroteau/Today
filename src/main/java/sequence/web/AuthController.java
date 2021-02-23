@@ -25,18 +25,18 @@ public class AuthController {
 	AuthService authService;
 
 	@RequestMapping(value="/authenticate", method=RequestMethod.POST)
-	public String authenticateAccount(ModelMap modelMap,
+	public String authenticate(ModelMap modelMap,
 							   RedirectAttributes redirect,
 							   HttpServletRequest request,
 							   @ModelAttribute("user") User user){
-		return authService.authenticateUser(user, redirect, request);
+		return authService.authenticate(user, redirect, request);
 	}
 
 
 	@RequestMapping(value="/signout", method=RequestMethod.GET)
-	public String unAuthenticateAccount(HttpServletRequest request,
+	public String deAuthenticate(HttpServletRequest request,
 						  RedirectAttributes redirect){
-		return authService.deAuthenticateUser(redirect, request);
+		return authService.deAuthenticate(redirect, request);
 	}
 
 }

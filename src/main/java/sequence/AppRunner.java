@@ -1,19 +1,17 @@
 package sequence;
 
 import sequence.common.Sequence;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import sequence.access.SequenceAccessor;
+import sequence.model.*;
+import sequence.common.Constants;
+import org.springframework.stereotype.Component;
 import sequence.repository.ProspectRepo;
 import sequence.repository.RoleRepo;
 import sequence.repository.StatusRepo;
 import sequence.repository.UserRepo;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.core.env.Environment;
-import sequence.access.SequenceAccessor;
-.*;
-import sequence.model.*;
-import sequence.common.Constants;
-import org.springframework.stereotype.Component;
 import xyz.strongperched.Parakeet;
 
 import javax.annotation.PostConstruct;
@@ -86,30 +84,20 @@ public class AppRunner {
 	}
 
 
-
-
-
 	private void createRoles(){
-		Role adminRole = roleRepo.find(Constants.ROLE_ADMIN);
-		Role superDuperRole = roleRepo.find(Constants.SUPER_DUPER);
-		Role donorRole = roleRepo.find(Constants.ROLE_DONOR);
+		Role adminRole = roleRepo.find(Constants.ADMIN_ROLE);
+		Role userRole = roleRepo.find(Constants.USER_ROLE);
 
 		if(adminRole == null){
 			adminRole = new Role();
-			adminRole.setName(Constants.ROLE_ADMIN);
+			adminRole.setName(Constants.ADMIN_ROLE);
 			roleRepo.save(adminRole);
 		}
 
-		if(superDuperRole == null){
-			superDuperRole = new Role();
-			superDuperRole.setName(Constants.SUPER_DUPER);
-			roleRepo.save(superDuperRole);
-		}
-
-		if(donorRole == null){
-			donorRole = new Role();
-			donorRole.setName(Constants.ROLE_DONOR);
-			roleRepo.save(donorRole);
+		if(userRole == null){
+			userRole = new Role();
+			userRole.setName(Constants.USER_ROLE);
+			roleRepo.save(userRole);
 		}
 
 		log.info("Roles : " + roleRepo.count());

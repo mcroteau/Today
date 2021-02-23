@@ -17,7 +17,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 @Service
-@PropertySource("classpath:application.properties.prod")
+@PropertySource("classpath:application.properties")
 public class EmailService extends Thread {
 
     @Value("${business.name}")

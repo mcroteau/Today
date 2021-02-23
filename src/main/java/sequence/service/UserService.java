@@ -49,7 +49,7 @@ public class UserService {
     private Environment env;
 
     private String getPermission(String id){
-        return Constants.ACCOUNT_MAINTENANCE + id;
+        return Constants.USER_MAINTENANCE + id;
     }
 
 
@@ -168,20 +168,12 @@ public class UserService {
             userRepo.save(user);
 
             User savedUser = userRepo.getByUsername(user.getUsername());
-            Role defaultRole = roleRepo.find(Constants.ROLE_DONOR);
+            Role defaultRole = roleRepo.find(Constants.USER_ROLE);
 
             userRepo.saveUserRole(savedUser.getId(), defaultRole.getId());
-            String permission = Constants.ACCOUNT_MAINTENANCE + savedUser.getId();
+            String permission = getPermission(Long.toString(savedUser.getId()));
             userRepo.savePermission(savedUser.getId(), permission);
 
-
-            String body = "<h1>Okay!</h1>"+
-                    "<p>Thank you for registering! We are on it, Okay!</p>";
-
-            if(!Sequence.isTestEnv(env)) {
-                emailService.send(savedUser.getUsername(), "Successfully Registered", body);
-                phoneService.support("Okay " + user.getUsername());
-            }
 
         }catch(Exception e){
             e.printStackTrace();
@@ -197,6 +189,7 @@ public class UserService {
         }
 
         req.getSession().setAttribute("username", user.getUsername());
+        req.getSession().setAttribute("userId", user.getId());
 
         return "redirect:/";
     }

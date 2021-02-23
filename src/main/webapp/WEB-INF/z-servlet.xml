@@ -12,9 +12,9 @@
 
 	<mvc:annotation-driven/>
 
-	<mvc:resources mapping="/assets/**" prospect="/assets/"/>
-	<mvc:resources mapping="/sitemaps/**" prospect="/sitemaps/" />
-	<mvc:resources mapping="/i18n/**" prospect="/i18n/" />
+	<mvc:resources mapping="/assets/**" location="/assets/"/>
+	<mvc:resources mapping="/sitemaps/**" location="/sitemaps/" />
+	<mvc:resources mapping="/i18n/**" location="/i18n/" />
 
 	<context:component-scan base-package="sequence.web"/>
 

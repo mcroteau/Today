@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -154,7 +153,7 @@ public class UserRepo {
 	}
 
 	public boolean checkSaveAdministratorRole(long accountId){
-		Role role = roleRepo.find(Constants.ROLE_ADMIN);
+		Role role = roleRepo.find(Constants.ADMIN_ROLE);
 		UserRole existing = getUserRole(accountId, role.getId());
 		if(existing == null){
 			saveUserRole(accountId, role.getId());
@@ -163,7 +162,7 @@ public class UserRepo {
 	}
 
 	public boolean checkSaveDefaultUserRole(long accountId){
-		Role role = roleRepo.find(Constants.ROLE_DONOR);
+		Role role = roleRepo.find(Constants.USER_ROLE);
 		UserRole existing = getUserRole(accountId, role.getId());
 		if(existing == null){
 			saveUserRole(accountId, role.getId());
@@ -183,7 +182,7 @@ public class UserRepo {
 	}
 
 	public boolean checkSaveDefaultUserPermission(long accountId){
-		String permission = Constants.ACCOUNT_MAINTENANCE + accountId;
+		String permission = Constants.USER_MAINTENANCE + accountId;
 		UserPermission existing = getUserPermission(accountId, permission);
 		if(existing == null){
 			savePermission(accountId, permission);

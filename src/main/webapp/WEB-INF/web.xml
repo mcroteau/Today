@@ -42,7 +42,7 @@
 	<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-			/WEB-INF/z-data-live.xml,
+			/WEB-INF/z-data-dev.xml,
 			/WEB-INF/z-context.xml,
 			/WEB-INF/z-servlet.xml
 		</param-value>

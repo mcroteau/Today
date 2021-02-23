@@ -37,7 +37,7 @@ public class AuthService {
     }
 
     public boolean isAdministrator(){
-        return Parakeet.hasRole(Constants.ROLE_ADMIN);
+        return Parakeet.hasRole(Constants.ADMIN_ROLE);
     }
 
     public boolean hasPermission(String permission){
@@ -54,7 +54,7 @@ public class AuthService {
         return user;
     }
 
-    public String authenticateUser(User user, RedirectAttributes redirect, HttpServletRequest request) {
+    public String authenticate(User user, RedirectAttributes redirect, HttpServletRequest request) {
 
         try{
             if(user == null) {
@@ -81,7 +81,7 @@ public class AuthService {
         return "redirect:/";
     }
 
-    public String deAuthenticateUser(RedirectAttributes redirect, HttpServletRequest request) {
+    public String deAuthenticate(RedirectAttributes redirect, HttpServletRequest request) {
         signout();
         redirect.addFlashAttribute("message", "Successfully signed out");
         request.getSession().setAttribute("username", "");

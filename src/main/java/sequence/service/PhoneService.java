@@ -4,11 +4,13 @@ import com.plivo.api.Plivo;
 import com.plivo.api.models.message.MessageCreateResponse;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class PhoneService {
 
     @Value("${plivo.api.key}")
