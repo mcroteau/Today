@@ -16,12 +16,14 @@
 
     <h1>Overview</h1>
     <c:forEach items="${efforts}" var="effort">
-        ${effort.startingStatus.name}
-        ${effort.endingStatus.name}
-        <c:forEach items="${effort.prospectActivities}" var="activity">
-            ${activity.name} >
-        </c:forEach>
-        <br/>
+        <c:if test="${effort.prospectActivities.size() > 0}">
+            <p>
+                <c:forEach items="${effort.prospectActivities}" var="activity">
+                   ${activity.name} >
+                </c:forEach>
+            </p>
+
+        </c:if>
     </c:forEach>
 
 </div>

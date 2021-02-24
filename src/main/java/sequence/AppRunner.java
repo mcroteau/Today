@@ -123,7 +123,7 @@ public class AppRunner {
 			effort.setStartDate(Sequence.getYesterday(Sequence.getNumber(31)));
 			Effort savedEffort = effortRepo.save(effort);
 
-			for(int k = 0; k < Sequence.getNumber(7); k++){
+			for(int k = 0; k < Sequence.getNumber(13); k++){
 				int index = Sequence.getNumber(activityNames.length - 1);
 				Activity activity = activities.get(index);
 				ProspectActivity prospectActivity = new ProspectActivity();

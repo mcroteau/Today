@@ -132,8 +132,8 @@ td{
 }
 
 p, span{
-    font-size: 23px;
-    font-family: roboto-slab !important;
+    font-size: 17px;
+    font-family: roboto !important;
     line-height: 1.3em;
 }
 
@@ -473,7 +473,7 @@ label{
 .href-dotted-black,
 .href-dotted-white{
     text-decoration: none !important;
-    font-family: roboto-slab !important;
+    font-family: roboto !important;
 }
 
 .href-dotted{
@@ -582,7 +582,7 @@ input[type="email"],
 input[type="email"]:hover,
 input[type="email"]:focus{
     width:100%;
-    font-family: roboto-slab-bold !important;
+    font-family: roboto-bold !important;
     padding: 13px 12px !important;
     line-height: 1.0em;
     font-size:27px !important;
@@ -599,7 +599,7 @@ input[type="number"]::placeholder{
 
 textarea{
     color:#000;
-    font-family:roboto-slab-bold !important;
+    font-family:roboto-bold !important;
     font-size:27px;
     width:100%;
     height:170px;
