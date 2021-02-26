@@ -12,7 +12,7 @@ out.
 * clone repo
 * cd into Sequence
 * run project    
-    `mvn jetty:run -Dspring.profiles.active=Dev`
+    `./mvnw jetty:run -Dspring.profiles.active=Dev`
     
 The project is completely open source. 
 You just can't make money from it.
