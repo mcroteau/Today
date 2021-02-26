@@ -5,10 +5,14 @@
 Today is an Open Source business application 
 dedicated managing People, Places and Organizations.
 
-Feel free to fork and run on your own to check it
+Feel free to clone and run on your own to check it
 out.
 
+
+
+
 ## Run
+* install openjdk
 * clone repo
 * cd into Sequence
 * run project    
