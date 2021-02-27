@@ -1,4 +1,4 @@
-package sequence.service;
+package today.service;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sequence.common.Constants;
-import sequence.model.User;
-import sequence.repository.UserRepo;
+import today.common.Constants;
+import today.model.User;
+import today.repository.UserRepo;
 import xyz.strongperched.Parakeet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class AuthService {
     }
 
     public boolean isAdministrator(){
-        return Parakeet.hasRole(Constants.ADMIN_ROLE);
+        return Parakeet.hasRole(Constants.SUPER_ROLE);
     }
 
     public boolean hasPermission(String permission){

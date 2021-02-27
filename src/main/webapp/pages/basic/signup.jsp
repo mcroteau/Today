@@ -18,7 +18,7 @@
     </p>
 
 
-    <form action="/z/register" modelAttribute="user" method="post" enctype="multipart/form-data" autocomplete="false" class="pure-form pure-form-stacked" id="registration-form">
+    <form action="/${pageContext.request.contextPath}/register" modelAttribute="user" method="post" enctype="multipart/form-data" autocomplete="false" class="pure-form pure-form-stacked" id="registration-form">
         <fieldset style="text-align: left">
 
             <h2 style="margin-bottom:20px;">Signup</h2>

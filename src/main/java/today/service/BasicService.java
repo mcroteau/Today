@@ -1,10 +1,10 @@
-package sequence.service;
+package today.service;
 
 import org.apache.commons.collections.ArrayStack;
 import org.springframework.ui.Model;
-import sequence.common.Constants;
-import sequence.model.*;
-import sequence.repository.*;
+import today.common.Constants;
+import today.model.*;
+import today.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;

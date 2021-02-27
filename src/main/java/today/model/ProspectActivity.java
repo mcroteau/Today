@@ -1,7 +1,7 @@
-package sequence.model;
+package today.model;
 
-import sequence.common.Constants;
-import sequence.common.Sequence;
+import today.common.Constants;
+import today.common.Sequence;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.text.SimpleDateFormat;

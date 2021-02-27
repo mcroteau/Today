@@ -1,13 +1,13 @@
-package sequence.access;
+package today.access;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import sequence.model.User;
-import sequence.repository.UserRepo;
+import today.model.User;
+import today.repository.UserRepo;
 import xyz.strongperched.resources.access.Accessor;
 
 import java.util.Set;
 
-public class SequenceAccessor implements xyz.strongperched.resources.access.Accessor {
+public class TodayAccessor implements Accessor {
 
     @Autowired
     private UserRepo userRepo;

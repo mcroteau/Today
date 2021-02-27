@@ -1,18 +1,18 @@
-package sequence.service;
+package today.service;
 
 import com.google.gson.Gson;
 import com.stripe.Stripe;
 import com.stripe.model.Price;
-import sequence.common.Sequence;
+import today.common.Sequence;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sequence.common.Constants;
-import sequence.model.*;
-import sequence.repository.*;
+import today.common.Constants;
+import today.model.*;
+import today.repository.*;
 import xyz.strongperched.Parakeet;
 
 import javax.servlet.http.HttpServletRequest;

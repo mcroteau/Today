@@ -1,7 +1,7 @@
-package sequence.web;
+package today.web;
 
-import sequence.model.Prospect;
-import sequence.service.ProspectService;
+import today.model.Prospect;
+import today.service.ProspectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

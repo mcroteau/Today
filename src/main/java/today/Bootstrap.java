@@ -1,26 +1,27 @@
-package sequence;
+package today;
 
-import sequence.common.Sequence;
+import today.access.TodayAccessor;
+import today.common.Sequence;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import sequence.access.SequenceAccessor;
-import sequence.model.*;
-import sequence.common.Constants;
+import today.access.SequenceAccessor;
+import today.model.*;
+import today.common.Constants;
 import org.springframework.stereotype.Component;
-import sequence.repository.*;
+import today.repository.*;
 import xyz.strongperched.Parakeet;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
-public class AppRunner {
+public class Bootstrap {
 
-	private static final Logger log = Logger.getLogger(AppRunner.class);
+	private static final Logger log = Logger.getLogger(Bootstrap.class);
 
 	@Autowired
-	SequenceAccessor accessor;
+	TodayAccessor accessor;
 
 	@Autowired
 	UserRepo userRepo;
@@ -152,13 +153,13 @@ public class AppRunner {
 
 
 	private void createRoles(){
-		Role adminRole = roleRepo.find(Constants.ADMIN_ROLE);
+		Role superRole = roleRepo.find(Constants.SUPER_ROLE);
 		Role userRole = roleRepo.find(Constants.USER_ROLE);
 
-		if(adminRole == null){
-			adminRole = new Role();
-			adminRole.setName(Constants.ADMIN_ROLE);
-			roleRepo.save(adminRole);
+		if(superRole == null){
+			superRole = new Role();
+			superRole.setName(Constants.SUPER_ROLE);
+			roleRepo.save(superRole);
 		}
 
 		if(userRole == null){
@@ -174,14 +175,14 @@ public class AppRunner {
 	private void createAdministrator(){
 		
 		try{
-			User existing = userRepo.getByUsername(Constants.ADMIN_USERNAME);
-			String password = Parakeet.dirty(Constants.PASSWORD);
+			User existing = userRepo.getByUsername(Constants.SUPER_USERNAME);
+			String password = Parakeet.dirty(Constants.SUPER_PASSWORD);
 
 			if(existing == null){
-				User admin = new User();
-				admin.setUsername(Constants.ADMIN_USERNAME);
-				admin.setPassword(password);
-				userRepo.saveAdministrator(admin);
+				User superUser = new User();
+				superUser.setUsername(Constants.SUPER_USERNAME);
+				superUser.setPassword(password);
+				userRepo.saveAdministrator(superUser);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

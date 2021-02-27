@@ -1,4 +1,4 @@
-package sequence.model.markup;
+package today.model.markup;
 
 import javax.xml.bind.annotation.*;
 

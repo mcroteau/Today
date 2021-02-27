@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Edit Prospect</h1>
-<form action="/z/prospects/update" method="post">
+<form action="/${pageContext.request.contextPath}/prospects/update" method="post">
 
     <input type="hidden" name="id" value="${prospect.id}"/>
 

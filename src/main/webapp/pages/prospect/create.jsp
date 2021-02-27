@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Create Prospect</h1>
-<form action="/z/prospects/save" method="post">
+<form action="/${pageContext.request.contextPath}/prospects/save" method="post">
 
     <label>Name</label>
     <input type="text" name="name" />

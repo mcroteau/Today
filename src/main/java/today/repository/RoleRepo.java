@@ -1,6 +1,6 @@
-package sequence.repository;
+package today.repository;
 
-import sequence.model.Role;
+import today.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

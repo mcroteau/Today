@@ -1,4 +1,4 @@
-package sequence.web;
+package today.web;
 
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sequence.model.User;
-import sequence.service.AuthService;
+import today.model.User;
+import today.service.AuthService;
 
 import javax.servlet.http.HttpServletRequest;
 

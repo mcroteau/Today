@@ -1,12 +1,12 @@
-package sequence.repository;
+package today.repository;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import sequence.model.Effort;
-import sequence.model.ProspectActivity;
+import today.model.Effort;
+import today.model.ProspectActivity;
 
 import java.util.List;
 

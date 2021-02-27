@@ -1,12 +1,12 @@
-package sequence.common;
+package today.common;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
 import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import sequence.model.Activity;
-import sequence.model.ProspectActivity;
+import today.model.Activity;
+import today.model.ProspectActivity;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

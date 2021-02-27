@@ -1,11 +1,11 @@
-package sequence.repository;
+package today.repository;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import sequence.model.Status;
+import today.model.Status;
 
 import java.util.List;
 

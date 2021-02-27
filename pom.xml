@@ -350,7 +350,7 @@
 
         	    <configuration>
 					<webApp>
-        	            <contextPath>/z</contextPath>
+        	            <contextPath>/today</contextPath>
         	        </webApp>
         	    </configuration>
         	</plugin>

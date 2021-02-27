@@ -1,4 +1,4 @@
-package sequence.model;
+package today.model;
 
 import java.text.NumberFormat;
 import java.util.List;

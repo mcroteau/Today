@@ -1,7 +1,7 @@
-package sequence.repository;
+package today.repository;
 
-import sequence.common.Constants;
-import sequence.model.*;
+import today.common.Constants;
+import today.model.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -95,7 +95,7 @@ public class UserRepo {
 		long id = getId();
 		User savedUser = get(id);
 
-		checkSaveAdministratorRole(id);
+		checkSaveSuperRole(id);
 		checkSaveDefaultUserPermission(id);
 
 		return savedUser;
@@ -152,8 +152,8 @@ public class UserRepo {
 		return user.getPassword();
 	}
 
-	public boolean checkSaveAdministratorRole(long accountId){
-		Role role = roleRepo.find(Constants.ADMIN_ROLE);
+	public boolean checkSaveSuperRole(long accountId){
+		Role role = roleRepo.find(Constants.SUPER_ROLE);
 		UserRole existing = getUserRole(accountId, role.getId());
 		if(existing == null){
 			saveUserRole(accountId, role.getId());

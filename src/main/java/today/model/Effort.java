@@ -1,6 +1,6 @@
-package sequence.model;
+package today.model;
 
-import sequence.common.Sequence;
+import today.common.Sequence;
 
 import java.util.List;
 

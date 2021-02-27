@@ -1,11 +1,11 @@
-package sequence.service;
+package today.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sequence.model.Prospect;
-import sequence.repository.ProspectRepo;
+import today.model.Prospect;
+import today.repository.ProspectRepo;
 
 import java.util.List;
 

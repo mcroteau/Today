@@ -64,7 +64,7 @@
     </c:if>
 
 
-    <a href="/z/user/edit_password/${user.id}" class="href-dotted" style="display:inline-block;margin-top:60px;">Update Password</a>
+    <a href="/${pageContext.request.contextPath}/user/edit_password/${user.id}" class="href-dotted" style="display:inline-block;margin-top:60px;">Update Password</a>
 	
 
 

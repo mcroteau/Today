@@ -1,4 +1,4 @@
-package sequence.service;
+package today.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;

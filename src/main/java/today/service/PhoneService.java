@@ -1,4 +1,4 @@
-package sequence.service;
+package today.service;
 
 import com.plivo.api.Plivo;
 import com.plivo.api.models.message.MessageCreateResponse;
