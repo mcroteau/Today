@@ -15,6 +15,7 @@
 
 
     <h1>Overview</h1>
+    <div class="go-left">
     <c:forEach items="${efforts}" var="effort">
         <c:if test="${effort.prospectActivities.size() > 0}">
             <p>
@@ -25,6 +26,12 @@
 
         </c:if>
     </c:forEach>
-
+    </div>
+    <div class="go-right">
+        <c:forEach items="${prospectCounts}" var="prospectCount">
+            <p>${prospectCount.status.name} : ${prospectCount.count}</p>
+        </c:forEach>
+    </div>
+    <br class="clear"/>
 </div>
 </body>

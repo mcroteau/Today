@@ -71,8 +71,8 @@ public class BasicService {
             effort.setProspectActivities(prospectActivities);
         }
 
-        modelMap.put("prospectCount", count);
         modelMap.put("efforts", efforts);
+        modelMap.put("prospectCount", count);
         modelMap.put("prospectCounts", prospectCounts);
 
         return "index";

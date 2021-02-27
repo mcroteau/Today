@@ -83,7 +83,7 @@ input, select, textarea,
 input::placeholder,
 textarea::placeholder, th, td{
     vertical-align: middle;
-	font-family: roboto-slab !important;
+	font-family: roboto !important;
 	color:#000;
 }
 td{
@@ -109,24 +109,24 @@ h1{
 	font-size:49px;
 	margin:11px 0px 0px;
 	line-height:1.3em;
-	font-family:roboto-slab-bold !important;
+	font-family:roboto-bold !important;
 }
 
 h2{
     font-size:36px;
     line-height: 1.0em;
-    font-family:roboto-slab-bold !important;
+    font-family:roboto-bold !important;
 }
 
 h3{
     font-size:29px;
-	font-family:roboto-slab-bold !important;
+	font-family:roboto-bold !important;
 	line-height:1.17;
     margin:10px auto 10px auto;
 }
 h4{
     font-size:26px;
-    font-family:roboto-slab-bold !important;
+    font-family:roboto-bold !important;
     margin:10px auto 10px auto;
     line-height:1.17;
 }
@@ -594,7 +594,7 @@ select{
     -webkit-border-radius: 8px !important;
     -moz-border-radius: 8px !important;
     border-radius: 8px !important;
-    font-family: roboto-slab-bold !important;
+    font-family: roboto-bold !important;
 }
 
 .clear{
@@ -613,5 +613,8 @@ select{
     float:right
 }
 
-
-body.obey{}
+.logo{
+    color:#000;
+    font-family: roboto-black !important;
+    text-decoration: none;
+}

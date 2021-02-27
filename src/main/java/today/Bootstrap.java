@@ -78,7 +78,7 @@ public class Bootstrap {
 
 		List<Status> statuses = statusRepo.getList();
 		for(String name: prospectNames){
-			Status status = statuses.get(Today.getNumber(statuses.size() - 1));
+			Status status = statuses.get(Today.getNumber(statuses.size()));
 			Prospect prospect = new Prospect();
 			prospect.setName(name);
 			prospect.setEmail(Today.getString(13));
@@ -104,7 +104,7 @@ public class Bootstrap {
 
 		List<Prospect> prospects = prospectRepo.getList();
 		for(Prospect prospect: prospects){
-			int index = Today.getNumber(activityNames.length - 1);
+			int index = Today.getNumber(activityNames.length);
 			Activity activity = activities.get(index);
 			ProspectActivity prospectActivity = new ProspectActivity();
 			prospectActivity.setActivityId(activity.getId());
@@ -115,9 +115,9 @@ public class Bootstrap {
 
 		Status endingStatus = statuses.get(2);
 		for(int z = 0; z < 25; z++){
-			Status startingStatus = statuses.get(Today.getNumber(statuses.size() - 1));
+			Status startingStatus = statuses.get(Today.getNumber(statuses.size()));
 
-			Prospect prospect = prospects.get(Today.getNumber(prospectNames.length - 1));
+			Prospect prospect = prospects.get(Today.getNumber(prospectNames.length));
 			Effort effort = new Effort();
 			effort.setProspectId(prospect.getId());
 			effort.setStartingStatusId(startingStatus.getId());
@@ -125,7 +125,7 @@ public class Bootstrap {
 			Effort savedEffort = effortRepo.save(effort);
 
 			for(int k = 0; k < Today.getNumber(13); k++){
-				int index = Today.getNumber(activityNames.length - 1);
+				int index = Today.getNumber(activityNames.length);
 				Activity activity = activities.get(index);
 				ProspectActivity prospectActivity = new ProspectActivity();
 				prospectActivity.setEffortId(savedEffort.getId());
