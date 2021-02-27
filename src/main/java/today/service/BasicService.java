@@ -39,8 +39,8 @@ public class BasicService {
             Prospects Count
             # Prospect in prospect|working|customer
             Actions by percent
-            Avg Sequence.
-            Avg Sequence for Customers
+            Avg Today.
+            Avg Today for Customers
          */
         Long count = prospectRepo.getCount();
         List<ProspectCount> prospectCounts = new ArrayList<>();

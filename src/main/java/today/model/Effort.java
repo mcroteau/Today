@@ -1,6 +1,6 @@
 package today.model;
 
-import today.common.Sequence;
+import today.common.Today;
 
 import java.util.List;
 
@@ -108,11 +108,11 @@ public class Effort {
     }
 
     public String getPrettyStartDate() {
-        return Sequence.getPretty(startDate);
+        return Today.getPretty(startDate);
     }
 
     public String getPrettyEndDate() {
-        return Sequence.getPretty(endDate);
+        return Today.getPretty(endDate);
     }
 
     public List<ProspectActivity> getProspectActivities() {

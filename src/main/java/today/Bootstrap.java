@@ -1,11 +1,11 @@
 package today;
 
 import today.access.TodayAccessor;
-import today.common.Sequence;
+import today.common.Today;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import today.access.SequenceAccessor;
+import today.access.TodayAccessor;
 import today.model.*;
 import today.common.Constants;
 import org.springframework.stereotype.Component;
@@ -78,11 +78,11 @@ public class Bootstrap {
 
 		List<Status> statuses = statusRepo.getList();
 		for(String name: prospectNames){
-			Status status = statuses.get(Sequence.getNumber(statuses.size() - 1));
+			Status status = statuses.get(Today.getNumber(statuses.size() - 1));
 			Prospect prospect = new Prospect();
 			prospect.setName(name);
-			prospect.setEmail(Sequence.getString(13));
-			prospect.setPhone(Integer.toString(Sequence.getNumber(10)));
+			prospect.setEmail(Today.getString(13));
+			prospect.setPhone(Integer.toString(Today.getNumber(10)));
 			prospect.setStatusId(status.getId());
 			prospectRepo.save(prospect);
 		}
@@ -104,7 +104,7 @@ public class Bootstrap {
 
 		List<Prospect> prospects = prospectRepo.getList();
 		for(Prospect prospect: prospects){
-			int index = Sequence.getNumber(activityNames.length - 1);
+			int index = Today.getNumber(activityNames.length - 1);
 			Activity activity = activities.get(index);
 			ProspectActivity prospectActivity = new ProspectActivity();
 			prospectActivity.setActivityId(activity.getId());
@@ -115,23 +115,23 @@ public class Bootstrap {
 
 		Status endingStatus = statuses.get(2);
 		for(int z = 0; z < 25; z++){
-			Status startingStatus = statuses.get(Sequence.getNumber(statuses.size() - 1));
+			Status startingStatus = statuses.get(Today.getNumber(statuses.size() - 1));
 
-			Prospect prospect = prospects.get(Sequence.getNumber(prospectNames.length - 1));
+			Prospect prospect = prospects.get(Today.getNumber(prospectNames.length - 1));
 			Effort effort = new Effort();
 			effort.setProspectId(prospect.getId());
 			effort.setStartingStatusId(startingStatus.getId());
-			effort.setStartDate(Sequence.getYesterday(Sequence.getNumber(31)));
+			effort.setStartDate(Today.getYesterday(Today.getNumber(31)));
 			Effort savedEffort = effortRepo.save(effort);
 
-			for(int k = 0; k < Sequence.getNumber(13); k++){
-				int index = Sequence.getNumber(activityNames.length - 1);
+			for(int k = 0; k < Today.getNumber(13); k++){
+				int index = Today.getNumber(activityNames.length - 1);
 				Activity activity = activities.get(index);
 				ProspectActivity prospectActivity = new ProspectActivity();
 				prospectActivity.setEffortId(savedEffort.getId());
 				prospectActivity.setActivityId(activity.getId());
 				prospectActivity.setProspectId(prospect.getId());
-				prospectActivity.setCompleteDate(Sequence.getDate());
+				prospectActivity.setCompleteDate(Today.getDate());
 				if(k % 2 == 0) {
 					prospectActivity.setCompleted(true);
 				}
@@ -141,7 +141,7 @@ public class Bootstrap {
 			savedEffort.setEndingStatusId(endingStatus.getId());
 			savedEffort.setSuccess(true);
 			savedEffort.setFinished(true);
-			savedEffort.setEndDate(Sequence.getDate());
+			savedEffort.setEndDate(Today.getDate());
 			effortRepo.update(savedEffort);
 
 			log.info("Efforts : " + effortRepo.getCount());

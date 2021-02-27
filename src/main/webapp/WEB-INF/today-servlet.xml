@@ -16,7 +16,7 @@
 	<mvc:resources mapping="/sitemaps/**" location="/sitemaps/" />
 	<mvc:resources mapping="/i18n/**" location="/i18n/" />
 
-	<context:component-scan base-package="sequence.web"/>
+	<context:component-scan base-package="today.web"/>
 
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">

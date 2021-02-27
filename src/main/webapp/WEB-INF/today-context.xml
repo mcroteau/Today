@@ -7,7 +7,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-	<context:component-scan base-package="sequence.*"/>
+	<context:component-scan base-package="today.*"/>
+
+	<bean id="bootstrap" class="today.Bootstrap"/>
+	<bean id="todayAccessor" class="today.access.TodayAccessor"/>
 
 	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -16,8 +19,4 @@
 			</list>
 		</property>
 	</bean>
-
-	<bean class="sequence.AppRunner"/>
-	<bean id="sequenceAccessor" class="sequence.access.SequenceAccessor"/>
-
 </beans>

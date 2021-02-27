@@ -3,7 +3,7 @@ package today.service;
 import com.google.gson.Gson;
 import com.stripe.Stripe;
 import com.stripe.model.Price;
-import today.common.Sequence;
+import today.common.Today;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -138,7 +138,7 @@ public class UserService {
             return "redirect:/signup";
         }
 
-        if(!Sequence.isValidMailbox(user.getUsername())){
+        if(!Today.isValidMailbox(user.getUsername())){
             redirect.addFlashAttribute("message", "Username must be a valid email.");
             return "redirect:/signup";
         }
@@ -204,7 +204,7 @@ public class UserService {
                 return ("redirect:/user/reset");
             }
 
-            String resetUuid = Sequence.getString(13);
+            String resetUuid = Today.getString(13);
             user.setUuid(resetUuid);
             userRepo.updateUuid(user);
 
@@ -217,7 +217,7 @@ public class UserService {
             String params = "username=" + URLEncoder.encode(user.getUsername(), "utf-8") + "&uuid=" + resetUuid;
             resetUrl += params;
 
-            String body = "<h1>Sequence</h1>" +
+            String body = "<h1>Today</h1>" +
                     "<p>Reset password</p>" +
                     "<p><a href=\"" + resetUrl + "\">" + resetUrl + "</a></p>";
 

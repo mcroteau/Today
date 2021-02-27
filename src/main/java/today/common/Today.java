@@ -16,9 +16,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Sequence {
+public class Today {
 
-	private static final Logger log = Logger.getLogger(Sequence.class);
+	private static final Logger log = Logger.getLogger(Today.class);
 
 	public static int getNumber(int max){
 		Random r = new Random();
@@ -151,12 +151,6 @@ public class Sequence {
 		};
 		Collections.sort(activities, comparator);
 		return activities;
-	}
-
-	public static boolean isTestEnv(Environment env){
-		String[] profilesPre = env.getActiveProfiles();
-		List<String> profiles = Arrays.asList(profilesPre);
-		return profiles.contains(Constants.MOCK_ENVIRONMENT);
 	}
 
 	public static boolean isDevEnv(Environment env){

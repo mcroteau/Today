@@ -1,7 +1,7 @@
 package today.model;
 
 import today.common.Constants;
-import today.common.Sequence;
+import today.common.Today;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.text.SimpleDateFormat;
@@ -67,7 +67,7 @@ public class ProspectActivity {
     }
 
     public String getDate() {
-        return Sequence.getPretty(completeDate);
+        return Today.getPretty(completeDate);
     }
 
     public String getName() {

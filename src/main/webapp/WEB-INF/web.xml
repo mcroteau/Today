@@ -9,13 +9,13 @@
 	</listener>
 	
   	<servlet>
-  		<servlet-name>z</servlet-name>
+  		<servlet-name>today</servlet-name>
     	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     	<load-on-startup>1</load-on-startup>  
     </servlet>
 
   	<servlet-mapping>
-    	<servlet-name>z</servlet-name>
+    	<servlet-name>today</servlet-name>
     	<url-pattern>/</url-pattern>
   	</servlet-mapping>
 
@@ -42,9 +42,9 @@
 	<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-			/WEB-INF/z-data-dev.xml,
-			/WEB-INF/z-context.xml,
-			/WEB-INF/z-servlet.xml
+			/WEB-INF/today-data-dev.xml,
+			/WEB-INF/today-context.xml,
+			/WEB-INF/today-servlet.xml
 		</param-value>
     </context-param>
 

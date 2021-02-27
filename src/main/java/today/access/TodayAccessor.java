@@ -1,12 +1,15 @@
 package today.access;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import today.model.User;
 import today.repository.UserRepo;
 import xyz.strongperched.resources.access.Accessor;
 
 import java.util.Set;
 
+@Component
 public class TodayAccessor implements Accessor {
 
     @Autowired
