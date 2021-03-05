@@ -4,14 +4,14 @@ public class Constants {
 
 	public static final String UNAUTHORIZED_REDIRECT = "redirect:/unauthorized";
 
-	public static final String PROSPECT_STATUS = "Prospect";
-	public static final String WORKING_STATUS = "Working";
-	public static final String CUSTOMER_STATUS = "Customer";
+	public static final String IDLE     = "Idle";
+	public static final String PROSPECT = "Prospect";
+	public static final String WORKING  = "Working";
+	public static final String CUSTOMER = "Customer";
 
 	public static final String SUPER_USERNAME = "croteau.mike@gmail.com";
-	public static final String GUEST_USERNAME = "croteau.mike@outlook.com";
+	public static final String MOCK_USERNAME = "croteau.mike@outlook.com";
 	public static final String SUPER_PASSWORD = "password";
-	public static final String GUEST_PASSWORD = "marisa";
 
 	public static final String SUPER_ROLE  = "SUPER_ROLE";
 	public static final String USER_ROLE   = "USER_ROLE";

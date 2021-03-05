@@ -32,7 +32,7 @@ public class ProspectController {
     }
 
     @GetMapping(value="/prospects")
-    public String getProspectes(@RequestParam String query, ModelMap modelMap){
+    public String getProspectes(@RequestParam(value="q", required=false) String query, ModelMap modelMap){
         return prospectService.getProspects(query, modelMap);
     }
 

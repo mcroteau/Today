@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @PropertySource("classpath:application.properties")
-public class UiService {
+public class UxService {
 
     @Value("${business.name}")
     String businessName;

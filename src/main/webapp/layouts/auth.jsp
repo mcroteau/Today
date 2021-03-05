@@ -2,16 +2,16 @@
 <%@ taglib prefix="Parakeet" uri="/META-INF/tags/parakeet.tld"%>
 <%@ page import="xyz.strongperched.Parakeet" %>
 <%@ page import="today.common.Constants" %>
-<%@ page import="today.service.UiService" %>
+<%@ page import="today.service.UxService" %>
 <%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%
     ApplicationContext context =  WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-    UiService uiService = (UiService) context.getBean("uiService");
+    UxService uxService = (UxService) context.getBean("uxService");
 %>
 <html>
 <head>
-    <title><%=uiService.getBusinessName()%> : <decorator:title default="One day at a time."/></title>
+    <title><%=uxService.getBusinessName()%> : <decorator:title default="One day at a time."/></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,7 +57,7 @@
     <br class="clear"/>
 
     <div id="contact" style="margin:30px auto 100px; text-align: center">
-        <p>Support: <a href="mailto:<%=uiService.getBusinessName()%> " class="href-dotted-black"><%=uiService.getBusinessEmail()%> </a></p>
+        <p>Support: <a href="mailto:<%=uxService.getBusinessName()%> " class="href-dotted-black"><%=uxService.getBusinessEmail()%> </a></p>
     </div>
 
 </body>

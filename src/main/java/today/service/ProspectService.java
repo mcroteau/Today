@@ -75,7 +75,13 @@ public class ProspectService {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
-        List<Prospect> prospects = prospectRepo.getResults(query);
+        List<Prospect> prospects;
+        if(query != null){
+            prospects = prospectRepo.getResults(query);
+        }else{
+            prospects = prospectRepo.getList();
+        }
+
         modelMap.put("prospects", prospects);
 
         return "prospect/list";

@@ -10,8 +10,8 @@
     <label>Name</label>
     <input type="text" name="name" />
 
-    <label>Uri</label>
-    <input type="text" name="locationUri" />
+    <label>Phone</label>
+    <input type="text" name="phone" />
 
     <label>Status</label>
     <select name="statusId" style="display: block">

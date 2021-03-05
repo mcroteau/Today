@@ -85,7 +85,7 @@ public class ProspectRepo {
     }
 
     public ProspectActivity getActivity(long id){
-        String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
+        String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.user_id, pa.complete_date, a.name " +
                 "from prospect_activities pa inner join activity a on pa.activity_id = a.id " +
                 "where pa.id = ?";
         ProspectActivity prospectActivity = jdbcTemplate.queryForObject(sql, new Object[]{ id },
@@ -94,8 +94,8 @@ public class ProspectRepo {
     }
 
     public boolean saveActivity(ProspectActivity prospectActivity) {
-        String sql = "insert into prospect_activities (activity_id, prospect_id, effort_id) values (?, ?, ?)";
-        jdbcTemplate.update(sql, prospectActivity.getActivityId(), prospectActivity.getProspectId(), prospectActivity.getEffortId());
+        String sql = "insert into prospect_activities (activity_id, prospect_id, user_id, effort_id) values (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, prospectActivity.getActivityId(), prospectActivity.getProspectId(), prospectActivity.getUserId(), prospectActivity.getEffortId());
         return true;
     }
 
@@ -111,6 +111,18 @@ public class ProspectRepo {
                 "where pa.id = ? order by pa.complete_date asc";
 
         List<ProspectActivity> prospectActivities = jdbcTemplate.query(sql, new Object[]{ id }, new BeanPropertyRowMapper<>(ProspectActivity.class));
+        return prospectActivities;
+    }
+
+
+    public List<ProspectActivity> getUserActivities(Long id){
+        String sql = "select pa.id, pa.activity_id, pa.effort_id, pa.complete_date, a.name " +
+                "from prospect_activities pa inner join activities a on pa.activity_id = a.id " +
+                "where pa.user_id = ? order by pa.complete_date asc";
+
+        List<ProspectActivity> prospectActivities = jdbcTemplate.query(sql,
+                new BeanPropertyRowMapper<>(ProspectActivity.class),
+                id);
         return prospectActivities;
     }
 

@@ -340,7 +340,7 @@
             <resource>
                 <directory>src/main/resources/database</directory>
                 <includes>
-                    <include>create-db.sql</include>
+                    <include>schema.sql</include>
                 </includes>
             </resource>
         </resources>

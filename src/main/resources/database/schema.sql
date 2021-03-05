@@ -61,7 +61,8 @@ create table prospect_activities (
 	completed boolean default false,
 	effort_id bigint REFERENCES efforts(id),
 	activity_id bigint NOT NULL REFERENCES activities(id),
-	prospect_id bigint NOT NULL REFERENCES prospects(id)
+	prospect_id bigint NOT NULL REFERENCES prospects(id),
+	user_id bigint NOT NULL REFERENCES users(id)
 );
 
 

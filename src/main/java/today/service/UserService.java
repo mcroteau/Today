@@ -76,7 +76,30 @@ public class UserService {
         }
 
         User user = userRepo.get(id);
+        Map<String, ActivityCount> preActivityCounts = new HashMap<>();
+        List<ProspectActivity> prospectActivities = prospectRepo.getUserActivities(user.getId());
+        for(ProspectActivity prospectActivity: prospectActivities){
+            if(preActivityCounts.containsKey(prospectActivity.getName())){
+                ActivityCount activityCount = preActivityCounts.get(prospectActivity.getName());
+                int count = activityCount.getCount();
+                count++;
+                activityCount.setCount(count);
+                preActivityCounts.put(activityCount.getName(), activityCount);
+            }else{
+                ActivityCount activityCount = new ActivityCount();
+                activityCount.setCount(1);
+                activityCount.setName(prospectActivity.getName());
+                preActivityCounts.put(prospectActivity.getName(), activityCount);
+            }
+        }
+
+        List<ActivityCount> activityCounts = new ArrayList<>();
+        for (Map.Entry<String, ActivityCount> activityCount : preActivityCounts.entrySet()){
+            activityCounts.add(activityCount.getValue());
+        }
+
         modelMap.put("user", user);
+        modelMap.put("activityCounts", activityCounts);
 
         return "user/edit";
     }

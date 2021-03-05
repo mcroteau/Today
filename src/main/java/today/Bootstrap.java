@@ -1,5 +1,6 @@
 package today;
 
+import org.springframework.core.env.Environment;
 import today.access.TodayAccessor;
 import today.common.Today;
 import org.apache.log4j.Logger;
@@ -41,21 +42,44 @@ public class Bootstrap {
 	@Autowired
 	EffortRepo effortRepo;
 
+	@Autowired
+	Environment env;
+
 
 	@PostConstruct
 	public void startup() {
 		Parakeet.perch(accessor);
-		createRoles();
-		createAdministrator();
-		createGuest();
-		createStatuses();
-		createMocks();
-	}
 
-	private boolean createStatuses(){
-		String[] names = { Constants.PROSPECT_STATUS,
-						   Constants.WORKING_STATUS,
-						   Constants.CUSTOMER_STATUS };
+		Role superRole = roleRepo.find(Constants.SUPER_ROLE);
+		Role userRole = roleRepo.find(Constants.USER_ROLE);
+
+		if(superRole == null){
+			superRole = new Role();
+			superRole.setName(Constants.SUPER_ROLE);
+			roleRepo.save(superRole);
+		}
+
+		if(userRole == null){
+			userRole = new Role();
+			userRole.setName(Constants.USER_ROLE);
+			roleRepo.save(userRole);
+		}
+
+		User existing = userRepo.getByUsername(Constants.SUPER_USERNAME);
+		String password = Parakeet.dirty(Constants.SUPER_PASSWORD);
+
+		if(existing == null){
+			User superUser = new User();
+			superUser.setUsername(Constants.SUPER_USERNAME);
+			superUser.setPassword(password);
+			userRepo.saveAdministrator(superUser);
+		}
+
+
+		String[] names = { Constants.IDLE,
+				           Constants.PROSPECT,
+				           Constants.WORKING,
+				           Constants.CUSTOMER };
 
 		for(String name: names){
 			Status status = new Status();
@@ -63,18 +87,34 @@ public class Bootstrap {
 			statusRepo.save(status);
 		}
 
+		log.info("Users : " + userRepo.getCount());
+		log.info("Roles : " + roleRepo.count());
 		log.info("Statuses : " + statusRepo.getCount());
-		return true;
+
+		if(Today.isDevEnv(env)){
+			createMocks();
+		}
 	}
 
 	private boolean createMocks(){
-		String[] prospectNames = { "Blue Water Trucking Co.",
-							"Love Hour Meditation",
-							"Jeff's Silly Suds Brew House",
-							"Dr. Suese's Chiropractor's Masseuse",
-							"Tidy Tim's Bean Factory",
-							"Grand Rapids Auto Park",
-							"Dirken's Fluffanutters" };
+
+		User mockUser = userRepo.getByUsername(Constants.MOCK_USERNAME);
+		String password = Parakeet.dirty(Constants.SUPER_PASSWORD);
+
+		if(mockUser == null){
+			User user = new User();
+			user.setUsername(Constants.MOCK_USERNAME);
+			user.setPassword(password);
+			mockUser = userRepo.save(user);
+		}
+
+		String[] prospectNames = {  "Blue Water Trucking Co.",
+									"Love Hour Meditation",
+									"Jeff's Silly Suds Brew House",
+									"Dr. Suese's Chiropractor's Masseuse",
+									"Tidy Tim's Bean Factory",
+									"Grand Rapids Auto Park",
+									"Dirken's Fluffanutters" };
 
 		List<Status> statuses = statusRepo.getList();
 		for(String name: prospectNames){
@@ -90,9 +130,9 @@ public class Bootstrap {
 
 
 		String[] activityNames = {  "Call",
-									"Email",
-									"Meeting",
-									};
+				"Email",
+				"Meeting",
+		};
 		for(String name : activityNames){
 			Activity activity = new Activity();
 			activity.setName(name);
@@ -109,6 +149,7 @@ public class Bootstrap {
 			ProspectActivity prospectActivity = new ProspectActivity();
 			prospectActivity.setActivityId(activity.getId());
 			prospectActivity.setProspectId(prospect.getId());
+			prospectActivity.setUserId(mockUser.getId());
 			prospectRepo.saveActivity(prospectActivity);
 		}
 		log.info("Prospect Activities : " + prospectRepo.getActivityCount());
@@ -131,6 +172,7 @@ public class Bootstrap {
 				prospectActivity.setEffortId(savedEffort.getId());
 				prospectActivity.setActivityId(activity.getId());
 				prospectActivity.setProspectId(prospect.getId());
+				prospectActivity.setUserId(mockUser.getId());
 				prospectActivity.setCompleteDate(Today.getDate());
 				if(k % 2 == 0) {
 					prospectActivity.setCompleted(true);
@@ -149,59 +191,6 @@ public class Bootstrap {
 		}
 
 		return true;
-	}
-
-
-	private void createRoles(){
-		Role superRole = roleRepo.find(Constants.SUPER_ROLE);
-		Role userRole = roleRepo.find(Constants.USER_ROLE);
-
-		if(superRole == null){
-			superRole = new Role();
-			superRole.setName(Constants.SUPER_ROLE);
-			roleRepo.save(superRole);
-		}
-
-		if(userRole == null){
-			userRole = new Role();
-			userRole.setName(Constants.USER_ROLE);
-			roleRepo.save(userRole);
-		}
-
-		log.info("Roles : " + roleRepo.count());
-	}
-
-	
-	private void createAdministrator(){
-		
-		try{
-			User existing = userRepo.getByUsername(Constants.SUPER_USERNAME);
-			String password = Parakeet.dirty(Constants.SUPER_PASSWORD);
-
-			if(existing == null){
-				User superUser = new User();
-				superUser.setUsername(Constants.SUPER_USERNAME);
-				superUser.setPassword(password);
-				userRepo.saveAdministrator(superUser);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-
-	}
-
-
-	private void createGuest(){
-		User existing = userRepo.getByUsername(Constants.GUEST_USERNAME);
-		String password = Parakeet.dirty(Constants.GUEST_PASSWORD);
-
-		if(existing == null){
-			User user = new User();
-			user.setUsername(Constants.GUEST_USERNAME);
-			user.setPassword(password);
-			userRepo.save(user);
-		}
-		log.info("Users : " + userRepo.getCount());
 	}
 
 }
