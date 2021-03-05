@@ -92,7 +92,7 @@ public class Bootstrap {
 		String[] activityNames = {  "Call",
 									"Email",
 									"Meeting",
-									"Demo"  };
+									};
 		for(String name : activityNames){
 			Activity activity = new Activity();
 			activity.setName(name);
@@ -114,7 +114,7 @@ public class Bootstrap {
 		log.info("Prospect Activities : " + prospectRepo.getActivityCount());
 
 		Status endingStatus = statuses.get(2);
-		for(int z = 0; z < 25; z++){
+		for(int z = 0; z < 3; z++){
 			Status startingStatus = statuses.get(Today.getNumber(statuses.size()));
 
 			Prospect prospect = prospects.get(Today.getNumber(prospectNames.length));
@@ -124,7 +124,7 @@ public class Bootstrap {
 			effort.setStartDate(Today.getYesterday(Today.getNumber(31)));
 			Effort savedEffort = effortRepo.save(effort);
 
-			for(int k = 0; k < Today.getNumber(13); k++){
+			for(int k = 0; k < 7; k++){
 				int index = Today.getNumber(activityNames.length);
 				Activity activity = activities.get(index);
 				ProspectActivity prospectActivity = new ProspectActivity();

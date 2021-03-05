@@ -73,9 +73,7 @@ public class UserRepo {
 
 	public User save(User user) {
 		String sql = "insert into users (username, password, date_created) values (?, ?, ?)";
-		jdbcTemplate.update(sql, new Object[] {
-				user.getUsername(), user.getPassword(), user.getDateCreated()
-		});
+		jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getDateCreated());
 
 		long id = getId();
 		User savedUser = get(id);
@@ -88,9 +86,7 @@ public class UserRepo {
 
 	public User saveAdministrator(User user) {
 		String sql = "insert into users (username, password) values (?, ?)";
-		jdbcTemplate.update(sql, new Object[] {
-				user.getUsername(), user.getPassword()
-		});
+		jdbcTemplate.update(sql, user.getUsername(), user.getPassword());
 
 		long id = getId();
 		User savedUser = get(id);
@@ -103,17 +99,13 @@ public class UserRepo {
 
 	public boolean updateUuid(User user) {
 		String sql = "update users set uuid = ? where id = ?";
-		jdbcTemplate.update(sql, new Object[] {
-				user.getUuid(), user.getId()
-		});
+		jdbcTemplate.update(sql, user.getUuid(), user.getId());
 		return true;
 	}
 	
 	public boolean updatePassword(User user) {
 		String sql = "update users set password = ? where id = ?";
-		jdbcTemplate.update(sql, new Object[] { 
-			user.getPassword(), user.getId()
-		});
+		jdbcTemplate.update(sql, user.getPassword(), user.getId());
 		return true;
 	}
 
@@ -143,7 +135,7 @@ public class UserRepo {
 	
 	public boolean delete(long id) {
 		String sql = "delete from users where id = ?";
-		jdbcTemplate.update(sql, new Object[] {id });
+		jdbcTemplate.update(sql, id);
 		return true;
 	}
 
@@ -203,29 +195,25 @@ public class UserRepo {
 
 	public boolean saveUserRole(long accountId, long roleId){
 		String sql = "insert into user_roles (role_id, user_id) values (?, ?)";
-		jdbcTemplate.update(sql, new Object[] { 
-			roleId, accountId
-		});
+		jdbcTemplate.update(sql, roleId, accountId);
 		return true;
 	}
 	
 	public boolean savePermission(long accountId, String permission){
 		String sql = "insert into user_permissions (user_id, permission) values (?, ?)";
-		jdbcTemplate.update(sql, new Object[] { 
-			accountId, permission
-		});
+		jdbcTemplate.update(sql, accountId, permission);
 		return true;
 	}
 	
 	public boolean deleteUserRoles(long accountId){
 		String sql = "delete from user_roles where user_id = ?";
-		jdbcTemplate.update(sql, new Object[] { accountId });
+		jdbcTemplate.update(sql, accountId);
 		return true;
 	}
 	
 	public boolean deleteUserPermissions(long accountId){
 		String sql = "delete from user_permissions where user_id = ?";
-		jdbcTemplate.update(sql, new Object[] { accountId });
+		jdbcTemplate.update(sql, accountId);
 		return true;
 	}
 
@@ -261,7 +249,7 @@ public class UserRepo {
 
     public boolean update(User user) {
 		String sql = "update users set username = ?, password = ?, stripe_user_id = ? where id = ?";
-		jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getStripeUserId(), user.getId() });
+		jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getStripeUserId(), user.getId());
 		return true;
     }
 }

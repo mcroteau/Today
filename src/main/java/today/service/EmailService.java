@@ -42,7 +42,7 @@ public class EmailService extends Thread {
     private String starttls;
 
 
-    private String protocol = "smtp";
+    private final String protocol = "smtp";
 
 
     public boolean send(String to, String subject, String body){

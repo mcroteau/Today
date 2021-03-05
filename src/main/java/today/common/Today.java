@@ -30,8 +30,7 @@ public class Today {
 		Matcher m = p.matcher(str);
 		boolean b = m.find();
 
-		if(b)return true;
-		return false;
+		return b;
 	}
 
 	public static String getGenericFileName(CommonsMultipartFile file){

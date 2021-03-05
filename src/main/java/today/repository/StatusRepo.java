@@ -46,9 +46,7 @@ public class StatusRepo {
 
     public Status save(Status status){
         String sql = "insert into statuses (name) values (?)";
-        jdbcTemplate.update(sql, new Object[] {
-                status.getName()
-        });
+        jdbcTemplate.update(sql, status.getName());
 
         Long id = getId();
         Status savedStatus = get(id);
@@ -57,15 +55,13 @@ public class StatusRepo {
 
     public boolean update(Status status) {
         String sql = "update statuses set name = ?, where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-                status.getName(), status.getId()
-        });
+        jdbcTemplate.update(sql, status.getName(), status.getId());
         return true;
     }
 
     public boolean delete(long id){
         String sql = "delete from statuses where id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 

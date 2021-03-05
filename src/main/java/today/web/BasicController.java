@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import today.service.BasicService;
 
@@ -23,6 +24,11 @@ public class BasicController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String index(ModelMap modelMap){
 		return basicService.index(modelMap);
+	}
+
+	@RequestMapping(value="/tree", method=RequestMethod.GET)
+	public @ResponseBody String index(){
+		return basicService.tidyTree();
 	}
 
 	@RequestMapping(value="/signin", method=RequestMethod.GET)

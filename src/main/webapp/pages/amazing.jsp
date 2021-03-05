@@ -59,7 +59,7 @@
         }
     </style>
 
-    <!--https://codepen.io/fernoftheandes/pen/pcoFz-->
+        <!--https://codepen.io/fernoftheandes/pen/pcoFz-->
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -88,7 +88,7 @@
 
                 var tree = d3.layout.tree()
                     .size([360, diameter / 2 - 80])
-                    .separation(function(a, b) { return (a.parent == b.parent ? 4 : 10) / a.depth; });
+                    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 10) / a.depth; });
 
                 var diagonal = d3.svg.diagonal.radial()
                     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
@@ -136,7 +136,7 @@
                         .attr("dy", ".35em")
                         .attr("text-anchor", "start")
                         //.attr("transform", function(d) { return d.x < 180 ? "translate(0)" : "rotate(180)translate(-" + (d.name.length * 8.5)  + ")"; })
-                        .text(function(d) { return d.name + " " + d.index; })
+                        .text(function(d) { return d.name; })
                         .style("fill-opacity", 1e-6);
 
                     // Transition nodes to their new position.

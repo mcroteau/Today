@@ -57,9 +57,7 @@ public class EffortRepo {
 
     public Effort save(Effort effort){
         String sql = "insert into efforts (start_date, end_date, prospect_id, starting_status_id) values (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, new Object[] {
-            effort.getStartDate(), effort.getEndDate(), effort.getProspectId(), effort.getStartingStatusId()
-        });
+        jdbcTemplate.update(sql, effort.getStartDate(), effort.getEndDate(), effort.getProspectId(), effort.getStartingStatusId());
 
         Long id = getId();
         Effort savedEffort = get(id);
@@ -68,15 +66,13 @@ public class EffortRepo {
 
     public boolean update(Effort effort) {
         String sql = "update efforts set end_date = ?, finished = ?, ending_status_id = ?, success = ? where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-            effort.getEndDate(), effort.getFinished(), effort.getEndingStatusId(), effort.getSuccess(), effort.getId()
-        });
+        jdbcTemplate.update(sql, effort.getEndDate(), effort.getFinished(), effort.getEndingStatusId(), effort.getSuccess(), effort.getId());
         return true;
     }
 
     public boolean delete(long id){
         String sql = "delete from efforts where id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 
@@ -93,13 +89,13 @@ public class EffortRepo {
 
     public boolean deleteActivity(Long id) {
         String sql = "delete from prospect_activities where effort_id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 
     public boolean deleteActivities(Long id) {
         String sql = "delete from prospect_activities where effort_id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 

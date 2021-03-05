@@ -65,9 +65,7 @@ public class ProspectRepo {
 
     public Prospect save(Prospect prospect){
         String sql = "insert into prospects (name, phone, email, status_id) values (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, new Object[] {
-            prospect.getName(), prospect.getPhone(), prospect.getEmail(), prospect.getStatusId()
-        });
+        jdbcTemplate.update(sql, prospect.getName(), prospect.getPhone(), prospect.getEmail(), prospect.getStatusId());
 
         Long id = getId();
         Prospect savedProspect = get(id);
@@ -76,15 +74,13 @@ public class ProspectRepo {
 
     public boolean update(Prospect prospect) {
         String sql = "update prospects set name = ?, phone = ?, email = ?, status_id = ? where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-            prospect.getName(), prospect.getPhone(), prospect.getEmail(), prospect.getStatusId(), prospect.getId()
-        });
+        jdbcTemplate.update(sql, prospect.getName(), prospect.getPhone(), prospect.getEmail(), prospect.getStatusId(), prospect.getId());
         return true;
     }
 
     public boolean delete(long id){
         String sql = "delete from prospects where id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 
@@ -99,17 +95,13 @@ public class ProspectRepo {
 
     public boolean saveActivity(ProspectActivity prospectActivity) {
         String sql = "insert into prospect_activities (activity_id, prospect_id, effort_id) values (?, ?, ?)";
-        jdbcTemplate.update(sql, new Object[] {
-                prospectActivity.getActivityId(), prospectActivity.getProspectId(), prospectActivity.getEffortId()
-        });
+        jdbcTemplate.update(sql, prospectActivity.getActivityId(), prospectActivity.getProspectId(), prospectActivity.getEffortId());
         return true;
     }
 
     public boolean updateActivity(ProspectActivity prospectActivity) {
         String sql = "update prospect_activities set complete_date = ?, completed = ? where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-                prospectActivity.getCompleteDate(), prospectActivity.getCompleted(), prospectActivity.getId()
-        });
+        jdbcTemplate.update(sql, prospectActivity.getCompleteDate(), prospectActivity.getCompleted(), prospectActivity.getId());
         return true;
     }
 
@@ -124,13 +116,13 @@ public class ProspectRepo {
 
     public boolean deleteActivity(Long id) {
         String sql = "delete from prospect_activities where id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 
     public boolean deleteActivities(Long id) {
         String sql = "delete from prospect_activities where prospect_id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 

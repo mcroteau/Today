@@ -46,9 +46,7 @@ public class TownRepo {
 
     public Town save(Town town){
         String sql = "insert into towns (name, count, town_uri) values (?, ?, ?)";
-        jdbcTemplate.update(sql, new Object[] {
-                town.getName(), town.getCount(), town.getTownUri()
-        });
+        jdbcTemplate.update(sql, town.getName(), town.getCount(), town.getTownUri());
 
         Long id = getId();
         Town savedTown = get(id);
@@ -57,15 +55,13 @@ public class TownRepo {
 
     public boolean update(Town town) {
         String sql = "update towns set name = ?, town_uri = ?, count = ? where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-                town.getName(), town.getTownUri(), town.getCount(), town.getId()
-        });
+        jdbcTemplate.update(sql, town.getName(), town.getTownUri(), town.getCount(), town.getId());
         return true;
     }
 
     public boolean delete(long id){
         String sql = "delete from towns where id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 

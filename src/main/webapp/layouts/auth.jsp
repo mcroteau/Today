@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/default.css?v=<%=System.currentTimeMillis()%>">
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/packages/jquery.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/packages/d3.old.js"></script>
 
 </head>
 <body>
@@ -36,18 +37,15 @@
                 </a>
 
                 <div id="navigation">
-                    <span id="welcome">Hello <a href="/z/user/edit/${sessionScope.userId}" class="href-dotted-black zero"><strong>${sessionScope.username}</strong></a>!</span>
+                    <span id="welcome">Hello <a href="${pageContext.request.contextPath}/user/edit/${sessionScope.userId}" class="href-dotted-black zero"><strong>${sessionScope.username}</strong></a>!</span>
                 </div>
                 <br class="clear"/>
+                <a href="${pageContext.request.contextPath}/" class="href-dotted">Overview</a>&nbsp;
+                <a href="${pageContext.request.contextPath}/prospects" class="href-dotted">Prospects</a>
             </div>
 
             <decorator:body />
 
-            <div id="footer-navigation" style="margin-top:30px;">
-                <%if(Parakeet.hasRole(Constants.SUPER_ROLE)){%>
-                    <a href="/z/prospects" class="href-dotted">Prospects</a>
-                <%}%>
-            </div>
         </div>
     </div>
 

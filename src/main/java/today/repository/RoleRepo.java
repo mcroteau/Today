@@ -54,9 +54,7 @@ public class RoleRepo {
 	
 	public void save(Role role) {
 		String sql = "insert into roles (name) values(?)";
-		jdbcTemplate.update(sql, new Object[] { 
-			role.getName()  
-		});
+		jdbcTemplate.update(sql, role.getName());
 	}
 	
 }

@@ -44,9 +44,7 @@ public class ActivityRepo {
 
     public Activity save(Activity activity){
         String sql = "insert into activities (name) values (?)";
-        jdbcTemplate.update(sql, new Object[] {
-            activity.getName()
-        });
+        jdbcTemplate.update(sql, activity.getName());
 
         Long id = getId();
         Activity savedActivity = get(id);
@@ -55,15 +53,13 @@ public class ActivityRepo {
 
     public boolean update(Activity activity) {
         String sql = "update activities set name = ? where id = ?";
-        jdbcTemplate.update(sql, new Object[] {
-            activity.getName(), activity.getId()
-        });
+        jdbcTemplate.update(sql, activity.getName(), activity.getId());
         return true;
     }
 
     public boolean delete(long id){
         String sql = "delete from activities where id = ?";
-        jdbcTemplate.update(sql, new Object[] {id });
+        jdbcTemplate.update(sql, id);
         return true;
     }
 
